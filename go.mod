@@ -3,7 +3,7 @@ module github.com/cdvelop/cutkey
 go 1.20
 
 require (
-	github.com/cdvelop/go_model v1.8.1
+	github.com/cdvelop/go_model v1.9.0
 	github.com/fxamacker/cbor/v2 v2.4.0
 )
 
