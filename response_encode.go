@@ -11,7 +11,7 @@ import (
 func (c Cut) EncodeResponses(requests []*model.Response) ([]byte, error) {
 	var cutResponses []cutResponse
 
-	// Iteramos por cada Responses para generar un CutResponse para cada uno
+	// Iteramos por cada Packages para generar un CutResponse para cada uno
 	for i, data := range requests {
 		// Obtenemos el objeto correspondiente a partir del mapa de objetos
 		obj, ok := (*c.models)[data.Object]

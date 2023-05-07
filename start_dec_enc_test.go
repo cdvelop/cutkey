@@ -37,14 +37,14 @@ func TestDecodeEncode(t *testing.T) {
 
 	data_encode, err := cut.EncodeResponses(requests)
 	if err != nil {
-		log.Fatalf("Error Encoding Responses: %v", err)
+		log.Fatalf("Error Encoding Packages: %v", err)
 	}
 
 	// fmt.Printf("**DATA: %s\n", string(data_encode))
 
 	responses, err := cut.DecodeResponses(data_encode)
 	if err != nil {
-		log.Fatalf("Error Decoding Responses: %v", err)
+		log.Fatalf("Error Decoding Packages: %v", err)
 	}
 
 	if !reflect.DeepEqual(responses, requests) {

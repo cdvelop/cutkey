@@ -28,13 +28,13 @@ func TestDecodeEncodeBadData(t *testing.T) {
 
 	data_decode, err := cut.EncodeResponses(requests)
 	if err != nil {
-		log.Fatalf("Error Encoding Responses: %v", err)
+		log.Fatalf("Error Encoding Packages: %v", err)
 	}
 	// fmt.Printf("%x\n", data_decode)
 
 	responses, err := cut.DecodeResponses(data_decode)
 	if err != nil {
-		log.Fatalf("Error Decoding Responses: %v", err)
+		log.Fatalf("Error Decoding Packages: %v", err)
 	}
 
 	// CASO 0: agregamos al original el modulo para comparar
@@ -66,7 +66,7 @@ func TestDecodeEncodeBadNoData(t *testing.T) {
 
 	_, err := cut.EncodeResponses(requests)
 	if err == nil {
-		log.Fatalf("Error Encoding Responses: %v", err)
+		log.Fatalf("Error Encoding Packages: %v", err)
 	}
 
 }
