@@ -6,15 +6,11 @@ import (
 	model "github.com/cdvelop/go_model"
 )
 
-type cut struct {
-	models *map[string]model.Object
-}
-
-func Add(models *map[string]model.Object) *cut {
+func Add(models *map[string]model.Object) *Cut {
 
 	if models == nil || len(*models) == 0 {
 		log.Fatalln("Modelos de Objetos No encontrado en cutkey")
 	}
 
-	return &cut{models: models}
+	return &Cut{models: models}
 }

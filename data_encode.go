@@ -5,9 +5,9 @@ import (
 )
 
 // dataEncode quita los nombres de los campos de la data según modelo del objeto
-func dataEncode(o *model.Object, data *map[string]string) CutData {
+func dataEncode(o *model.Object, data *map[string]string) cutData {
 
-	cut_data := CutData{
+	cut_data := cutData{
 		Index: make(map[uint8]uint8),
 		Data:  []string{},
 	}

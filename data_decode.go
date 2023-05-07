@@ -6,7 +6,7 @@ import (
 	model "github.com/cdvelop/go_model"
 )
 
-func dataDecode(o *model.Object, cut_data ...CutData) ([]map[string]string, error) {
+func dataDecode(o *model.Object, cut_data ...cutData) ([]map[string]string, error) {
 	var decodedData []map[string]string
 
 	for _, c := range cut_data {

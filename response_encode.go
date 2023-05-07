@@ -8,8 +8,8 @@ import (
 	model "github.com/cdvelop/go_model"
 )
 
-func (c cut) EncodeResponses(requests []model.Response) ([]byte, error) {
-	var cutResponses []CutResponse
+func (c Cut) EncodeResponses(requests []model.Response) ([]byte, error) {
+	var cutResponses []cutResponse
 
 	// Iteramos por cada Responses para generar un CutResponse para cada uno
 	for i, data := range requests {
@@ -20,7 +20,7 @@ func (c cut) EncodeResponses(requests []model.Response) ([]byte, error) {
 		}
 
 		// Generamos los Cut_data a partir de la data de la respuesta
-		var cut_data []CutData
+		var cut_data []cutData
 		for _, m := range data.Data {
 
 			cut_data = append(cut_data, dataEncode(&obj, &m))
@@ -30,7 +30,7 @@ func (c cut) EncodeResponses(requests []model.Response) ([]byte, error) {
 		requests[i] = data
 
 		// Generamos el CutResponse
-		cutResponse := CutResponse{
+		cutResponse := cutResponse{
 			CutOptions: []string{data.Type, data.Object},
 			CutData:    cut_data,
 		}

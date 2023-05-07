@@ -8,9 +8,9 @@ import (
 	model "github.com/cdvelop/go_model"
 )
 
-func (c cut) DecodeResponses(data []byte) (responses []model.Response, err error) {
+func (c Cut) DecodeResponses(data []byte) (responses []model.Response, err error) {
 
-	var cutResponses []CutResponse
+	var cutResponses []cutResponse
 	// Decodificamos el array de bytes JSON en un slice de CutResponse
 	err = json.Unmarshal(data, &cutResponses)
 	if err != nil {

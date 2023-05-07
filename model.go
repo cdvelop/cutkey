@@ -1,6 +1,12 @@
 package cutkey
 
-type CutData struct {
+import model "github.com/cdvelop/go_model"
+
+type Cut struct {
+	models *map[string]model.Object
+}
+
+type cutData struct {
 
 	// ej Modelo Objeto: usuario := Object{Name: "Usuario",Fields: []Field{
 	// 		{Name: "name"}, //0
@@ -18,9 +24,9 @@ type CutData struct {
 	Data []string `json:"d"`
 }
 
-type CutResponse struct {
+type cutResponse struct {
 	//Type,Object,Module,Message
 	//ej: ["read","user","Users","ok"]
 	CutOptions []string  `json:"o"`
-	CutData    []CutData `json:"d"`
+	CutData    []cutData `json:"d"`
 }
