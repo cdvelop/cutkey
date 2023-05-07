@@ -2,6 +2,7 @@ package cutkey
 
 import model "github.com/cdvelop/go_model"
 
+//librería para decodificar y codificar datos en json sin el nombre de los campos
 type Cut struct {
 	models *map[string]model.Object
 }
