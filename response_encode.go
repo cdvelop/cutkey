@@ -8,7 +8,7 @@ import (
 	model "github.com/cdvelop/go_model"
 )
 
-func (c Cut) EncodeResponses(requests []model.Response) ([]byte, error) {
+func (c Cut) EncodeResponses(requests []*model.Response) ([]byte, error) {
 	var cutResponses []cutResponse
 
 	// Iteramos por cada Responses para generar un CutResponse para cada uno

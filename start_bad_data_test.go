@@ -11,7 +11,7 @@ import (
 func TestDecodeEncodeBadData(t *testing.T) {
 	cut := Add(&objects)
 
-	requests := []model.Response{
+	requests := []*model.Response{
 
 		{ // CASO 0: sin modulo y sin mensaje se espera que se iguale el nombre del modulo al del objeto
 			Type:   "read",
@@ -56,7 +56,7 @@ func TestDecodeEncodeBadData(t *testing.T) {
 func TestDecodeEncodeBadNoData(t *testing.T) {
 	cut := Add(&objects)
 
-	requests := []model.Response{
+	requests := []*model.Response{
 
 		{ // CASO 0: sin nada se espera error
 			Type:   "",

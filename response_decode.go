@@ -8,7 +8,7 @@ import (
 	model "github.com/cdvelop/go_model"
 )
 
-func (c Cut) DecodeResponses(data []byte) (responses []model.Response, err error) {
+func (c Cut) DecodeResponses(data []byte) (responses []*model.Response, err error) {
 
 	var cutResponses []cutResponse
 	// Decodificamos el array de bytes JSON en un slice de CutResponse
@@ -62,7 +62,7 @@ func (c Cut) DecodeResponses(data []byte) (responses []model.Response, err error
 				response.Message = cr.CutOptions[3]
 			}
 
-			responses = append(responses, response)
+			responses = append(responses, &response)
 		}
 	}
 

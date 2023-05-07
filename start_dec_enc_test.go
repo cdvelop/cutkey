@@ -11,7 +11,7 @@ import (
 func TestDecodeEncode(t *testing.T) {
 	cut := Add(&objects)
 
-	requests := []model.Response{
+	requests := []*model.Response{
 		{
 			Type:    "read",
 			Object:  "user",
