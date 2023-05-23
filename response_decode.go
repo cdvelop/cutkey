@@ -5,7 +5,7 @@ import (
 
 	"fmt"
 
-	model "github.com/cdvelop/go_model"
+	"github.com/cdvelop/model"
 )
 
 func (c Cut) DecodeResponses(data []byte) (responses []*model.Response, err error) {
@@ -50,10 +50,10 @@ func (c Cut) DecodeResponses(data []byte) (responses []*model.Response, err erro
 			response.Object = cr.CutOptions[1]
 
 			if len(cr.CutOptions) > 2 {
-				// fmt.Println("si contiene modulo")
+				// fmt.Println("si contiene module")
 				response.Module = cr.CutOptions[2]
 			} else {
-				// fmt.Println("no contiene modulo copiamos el objeto")
+				// fmt.Println("no contiene module copiamos el objeto")
 				response.Module = response.Object
 			}
 

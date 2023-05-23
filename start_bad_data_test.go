@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	model "github.com/cdvelop/go_model"
+	"github.com/cdvelop/model"
 )
 
 func TestDecodeEncodeBadData(t *testing.T) {
@@ -13,7 +13,7 @@ func TestDecodeEncodeBadData(t *testing.T) {
 
 	requests := []*model.Response{
 
-		{ // CASO 0: sin modulo y sin mensaje se espera que se iguale el nombre del modulo al del objeto
+		{ // CASO 0: sin module y sin mensaje se espera que se iguale el nombre del module al del objeto
 			Type:   "read",
 			Object: "user",
 			Data: []map[string]string{
@@ -37,13 +37,13 @@ func TestDecodeEncodeBadData(t *testing.T) {
 		log.Fatalf("Error Decoding Packages: %v", err)
 	}
 
-	// CASO 0: agregamos al original el modulo para comparar
+	// CASO 0: agregamos al original el module para comparar
 	requests[0].Module = "user"
 	if !reflect.DeepEqual(responses[0], requests[0]) {
 		log.Fatalf("Unexpected result:\n\n=>response: %v\n=>expected: %v\n", responses[0], requests[0])
 	}
 
-	// CASO 1: agregamos al original el modulo para comparar
+	// CASO 1: agregamos al original el module para comparar
 	requests[1].Module = "product"
 	if !reflect.DeepEqual(responses[1], requests[1]) {
 		log.Fatalf("Unexpected result:\n\n=>response: %v\n=>expected: %v\n", responses[1], requests[1])

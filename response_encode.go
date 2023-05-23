@@ -5,7 +5,7 @@ import (
 
 	json "github.com/fxamacker/cbor/v2"
 
-	model "github.com/cdvelop/go_model"
+	"github.com/cdvelop/model"
 )
 
 func (c Cut) EncodeResponses(requests []*model.Response) ([]byte, error) {

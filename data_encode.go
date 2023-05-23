@@ -1,7 +1,7 @@
 package cutkey
 
 import (
-	model "github.com/cdvelop/go_model"
+	"github.com/cdvelop/model"
 )
 
 // dataEncode quita los nombres de los campos de la data según modelo del objeto

@@ -3,7 +3,7 @@ package cutkey
 import (
 	"log"
 
-	model "github.com/cdvelop/go_model"
+	"github.com/cdvelop/model"
 )
 
 func Add(models *map[string]model.Object) *Cut {

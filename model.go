@@ -1,6 +1,6 @@
 package cutkey
 
-import model "github.com/cdvelop/go_model"
+import "github.com/cdvelop/model"
 
 //librería para decodificar y codificar datos en json sin el nombre de los campos
 type Cut struct {

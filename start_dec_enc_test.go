@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	model "github.com/cdvelop/go_model"
+	"github.com/cdvelop/model"
 )
 
 func TestDecodeEncode(t *testing.T) {

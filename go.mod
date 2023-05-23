@@ -2,11 +2,11 @@ module github.com/cdvelop/cutkey
 
 go 1.20
 
+require github.com/fxamacker/cbor/v2 v2.4.0
+
 require (
-	github.com/cdvelop/go_model v1.10.0
-	github.com/fxamacker/cbor/v2 v2.4.0
+	github.com/cdvelop/model v0.0.18
+	github.com/x448/float16 v0.8.4 // indirect
 )
 
-require github.com/x448/float16 v0.8.4 // indirect
-
-// replace github.com/cdvelop/go_model => ../go_model
+// replace github.com/cdvelop/model => ../model

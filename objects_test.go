@@ -1,7 +1,7 @@
 package cutkey
 
 import (
-	model "github.com/cdvelop/go_model"
+	"github.com/cdvelop/model"
 )
 
 var objects = map[string]model.Object{

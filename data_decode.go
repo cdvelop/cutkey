@@ -3,7 +3,7 @@ package cutkey
 import (
 	"fmt"
 
-	model "github.com/cdvelop/go_model"
+	"github.com/cdvelop/model"
 )
 
 func dataDecode(o *model.Object, cut_data ...cutData) ([]map[string]string, error) {

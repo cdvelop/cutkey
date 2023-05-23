@@ -1,5 +1,5 @@
-github.com/cdvelop/go_model v1.10.0 h1:sPAF5Y/oj7CRNGL1TJrCGTZJIt37MlBMB4IfU63pt4s=
-github.com/cdvelop/go_model v1.10.0/go.mod h1:OC+5YpxZqoIHcnkQFjWywtYyPJL4GQ6Vv+U755G4I24=
+github.com/cdvelop/model v0.0.18 h1:oUYBgtdLVxmI4NjZ7jL1w+K2ceXc+f8BW2Mw+6moN+0=
+github.com/cdvelop/model v0.0.18/go.mod h1:0r2h8Xber0Stfa2miICUDziNM8l6JWPOA9i7zp2StLU=
 github.com/fxamacker/cbor/v2 v2.4.0 h1:ri0ArlOR+5XunOP8CRUowT0pSJOwhW098ZCUyskZD88=
 github.com/fxamacker/cbor/v2 v2.4.0/go.mod h1:TA1xS00nchWmaBnEIxPSE5oHLuJBAVvqrtAnWBwBCVo=
 github.com/x448/float16 v0.8.4 h1:qLwI1I70+NjRFUR3zs1JPUCgaCXSh3SW62uAKT1mSBM=
