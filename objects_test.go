@@ -1,20 +1,20 @@
-package cutkey
+package cutkey_test
 
 import (
 	"github.com/cdvelop/model"
 )
 
-var objects = map[string]model.Object{
-	"user": {
-		Name: "Usuario",
+var cutObjects = []model.Object{
+	{
+		Name: "user",
 		Fields: []model.Field{
 			{Name: "name"},
 			{Name: "email"},
 			{Name: "phone"},
 		},
 	},
-	"product": {
-		Name: "Producto",
+	{
+		Name: "product",
 		Fields: []model.Field{
 			{Name: "description"},
 			{Name: "price"},

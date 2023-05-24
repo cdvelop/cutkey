@@ -8,4 +8,4 @@ la idea principal es enviar la menor data posible que no es util.
 esta pensado para trabajar con go del lado del cliente compilado a WebAssembly.
 
 se eligió la librería cbor para codificar según la chatGpt es compatible con
-tinyGo ..no lo he probado aun..
+tinyGo ..estamos trabajando en eso..

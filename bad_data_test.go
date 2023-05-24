@@ -1,17 +1,17 @@
-package cutkey
+package cutkey_test
 
 import (
 	"log"
 	"reflect"
 	"testing"
 
+	"github.com/cdvelop/cutkey"
 	"github.com/cdvelop/model"
 )
 
 func TestDecodeEncodeBadData(t *testing.T) {
-	cut := Add(&objects)
 
-	requests := []*model.Response{
+	requests := []model.Response{
 
 		{ // CASO 0: sin module y sin mensaje se espera que se iguale el nombre del module al del objeto
 			Type:   "read",
@@ -26,13 +26,13 @@ func TestDecodeEncodeBadData(t *testing.T) {
 		},
 	}
 
-	data_decode, err := cut.EncodeResponses(requests)
+	data_decode, err := cutkey.EncodeResponses(cutObjects, requests)
 	if err != nil {
 		log.Fatalf("Error Encoding Packages: %v", err)
 	}
 	// fmt.Printf("%x\n", data_decode)
 
-	responses, err := cut.DecodeResponses(data_decode)
+	responses, err := cutkey.DecodeResponses(cutObjects, data_decode)
 	if err != nil {
 		log.Fatalf("Error Decoding Packages: %v", err)
 	}
@@ -54,9 +54,8 @@ func TestDecodeEncodeBadData(t *testing.T) {
 }
 
 func TestDecodeEncodeBadNoData(t *testing.T) {
-	cut := Add(&objects)
 
-	requests := []*model.Response{
+	requests := []model.Response{
 
 		{ // CASO 0: sin nada se espera error
 			Type:   "",
@@ -64,7 +63,7 @@ func TestDecodeEncodeBadNoData(t *testing.T) {
 		},
 	}
 
-	_, err := cut.EncodeResponses(requests)
+	_, err := cutkey.EncodeResponses(cutObjects, requests)
 	if err == nil {
 		log.Fatalf("Error Encoding Packages: %v", err)
 	}

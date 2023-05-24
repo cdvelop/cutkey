@@ -1,41 +1,49 @@
 package cutkey
 
 import (
+	"github.com/cdvelop/model"
 	json "github.com/fxamacker/cbor/v2"
 
 	"fmt"
-
-	"github.com/cdvelop/model"
 )
 
-func (c Cut) DecodeResponses(data []byte) (responses []*model.Response, err error) {
+func DecodeResponses(objects []model.Object, data []byte) (responses []model.Response, err error) {
 
-	var cutResponses []cutResponse
+	var CutResponses []model.CutResponse
 	// Decodificamos el array de bytes JSON en un slice de CutResponse
-	err = json.Unmarshal(data, &cutResponses)
+	err = json.Unmarshal(data, &CutResponses)
 	if err != nil {
 		return nil, err
 	}
 
-	if len(cutResponses) > 0 {
+	if len(CutResponses) > 0 {
 
-		for i, cr := range cutResponses {
-			// fmt.Printf("TAMAÑO CutOptions: %v\n", len(cutResponses[0].CutOptions))
-			if len(cutResponses[i].CutOptions) < 2 || len(cutResponses[i].CutOptions) > 4 {
-				return nil, fmt.Errorf("CutOptions incorrectas en DecodeResponses %s ", cutResponses[i].CutOptions)
+		for i, cr := range CutResponses {
+			// fmt.Printf("TAMAÑO CutOptions: %v\n", len(CutResponses[0].CutOptions))
+			if len(CutResponses[i].CutOptions) < 2 || len(CutResponses[i].CutOptions) > 4 {
+				return nil, fmt.Errorf("CutOptions incorrectas en DecodeResponses %s ", CutResponses[i].CutOptions)
 			}
 
-			if i >= len(cutResponses) {
-				return nil, fmt.Errorf("índice fuera de rango en cutResponses: %d", i)
+			if i >= len(CutResponses) {
+				return nil, fmt.Errorf("índice fuera de rango en CutResponses: %d", i)
 			}
 
-			// Obtenemos el objeto correspondiente a partir del mapa de objetos
-			obj, ok := (*c.models)[cr.CutOptions[1]]
-			if !ok {
-				return nil, fmt.Errorf("objeto %s no encontrado en el mapa de objetos", cr.CutOptions[1])
+			var object model.Object
+			var found_object bool
+
+			for _, obj := range objects {
+				if obj.Name == cr.CutOptions[1] {
+					object = obj
+					found_object = true
+					break
+				}
 			}
 
-			data, err := dataDecode(&obj, cr.CutData...)
+			if !found_object {
+				return nil, fmt.Errorf("objeto %s no encontrado en el slice de objetos", cr.CutOptions[1])
+			}
+
+			data, err := object.DataDecode(cr.CutData...)
 			if err != nil {
 				return nil, err
 			}
@@ -62,7 +70,7 @@ func (c Cut) DecodeResponses(data []byte) (responses []*model.Response, err erro
 				response.Message = cr.CutOptions[3]
 			}
 
-			responses = append(responses, &response)
+			responses = append(responses, response)
 		}
 	}
 
