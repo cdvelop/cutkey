@@ -7,7 +7,7 @@ import (
 	"fmt"
 )
 
-func DecodeResponses(objects []model.Object, data []byte) (responses []model.Response, err error) {
+func (a Add) DecodeResponses(data []byte) (responses []model.Response, err error) {
 
 	var CutResponses []model.CutResponse
 	// Decodificamos el array de bytes JSON en un slice de CutResponse
@@ -31,7 +31,7 @@ func DecodeResponses(objects []model.Object, data []byte) (responses []model.Res
 			var object model.Object
 			var found_object bool
 
-			for _, obj := range objects {
+			for _, obj := range *a.Objects {
 				if obj.Name == cr.CutOptions[1] {
 					object = obj
 					found_object = true

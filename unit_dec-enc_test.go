@@ -5,7 +5,6 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/cdvelop/cutkey"
 	"github.com/cdvelop/model"
 )
 
@@ -35,14 +34,14 @@ func TestDecodeEncode(t *testing.T) {
 		},
 	}
 
-	data_encode, err := cutkey.EncodeResponses(cutObjects, requests)
+	data_encode, err := cut.EncodeResponses(requests)
 	if err != nil {
 		log.Fatalf("Error Encoding Packages: %v", err)
 	}
 
 	// fmt.Printf("**DATA: %s\n", string(data_encode))
 
-	responses, err := cutkey.DecodeResponses(cutObjects, data_encode)
+	responses, err := cut.DecodeResponses(data_encode)
 	if err != nil {
 		log.Fatalf("Error Decoding Packages: %v", err)
 	}

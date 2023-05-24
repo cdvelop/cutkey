@@ -7,7 +7,7 @@ import (
 	json "github.com/fxamacker/cbor/v2"
 )
 
-func EncodeResponses(objects []model.Object, requests []model.Response) ([]byte, error) {
+func (a Add) EncodeResponses(requests []model.Response) ([]byte, error) {
 	var CutResponses []model.CutResponse
 
 	// Iteramos por cada Packages para generar un CutResponse para cada uno
@@ -16,7 +16,7 @@ func EncodeResponses(objects []model.Object, requests []model.Response) ([]byte,
 		var object model.Object
 		var found_object bool
 
-		for _, obj := range objects {
+		for _, obj := range *a.Objects {
 			if obj.Name == data.Object {
 				object = obj
 				found_object = true

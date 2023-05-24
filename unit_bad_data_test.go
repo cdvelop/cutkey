@@ -9,6 +9,10 @@ import (
 	"github.com/cdvelop/model"
 )
 
+var cut = cutkey.Add{
+	Objects: &cutObjects,
+}
+
 func TestDecodeEncodeBadData(t *testing.T) {
 
 	requests := []model.Response{
@@ -26,13 +30,13 @@ func TestDecodeEncodeBadData(t *testing.T) {
 		},
 	}
 
-	data_decode, err := cutkey.EncodeResponses(cutObjects, requests)
+	data_decode, err := cut.EncodeResponses(requests)
 	if err != nil {
 		log.Fatalf("Error Encoding Packages: %v", err)
 	}
 	// fmt.Printf("%x\n", data_decode)
 
-	responses, err := cutkey.DecodeResponses(cutObjects, data_decode)
+	responses, err := cut.DecodeResponses(data_decode)
 	if err != nil {
 		log.Fatalf("Error Decoding Packages: %v", err)
 	}
@@ -63,7 +67,7 @@ func TestDecodeEncodeBadNoData(t *testing.T) {
 		},
 	}
 
-	_, err := cutkey.EncodeResponses(cutObjects, requests)
+	_, err := cut.EncodeResponses(requests)
 	if err == nil {
 		log.Fatalf("Error Encoding Packages: %v", err)
 	}
