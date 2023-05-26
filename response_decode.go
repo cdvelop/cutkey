@@ -7,7 +7,7 @@ import (
 	"fmt"
 )
 
-func (c cut) DecodeResponses(data []byte) (responses []model.Response) {
+func (c Cut) DecodeResponses(data []byte) (responses []model.Response) {
 
 	var CutResponses []model.CutResponse
 	// Decodificamos el array de bytes JSON en un slice de CutResponse

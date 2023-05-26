@@ -9,4 +9,4 @@ require (
 	github.com/x448/float16 v0.8.4 // indirect
 )
 
-replace github.com/cdvelop/model => ../model
+// replace github.com/cdvelop/model => ../model

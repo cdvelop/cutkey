@@ -7,7 +7,7 @@ import (
 	json "github.com/fxamacker/cbor/v2"
 )
 
-func (c cut) EncodeResponses(requests []model.Response) []byte {
+func (c Cut) EncodeResponses(requests []model.Response) []byte {
 	var CutResponses []model.CutResponse
 
 	// Iteramos por cada Packages para generar un CutResponse para cada uno

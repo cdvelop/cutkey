@@ -7,7 +7,7 @@ import (
 	json "github.com/fxamacker/cbor/v2"
 )
 
-func (cut) encodeError(r *model.Response) []byte {
+func (Cut) encodeError(r *model.Response) []byte {
 
 	out, err := json.Marshal([]model.CutResponse{
 		{
@@ -28,7 +28,7 @@ func (cut) encodeError(r *model.Response) []byte {
 	return out
 }
 
-func (cut) decodeError(object string, message error) []model.Response {
+func (Cut) decodeError(object string, message error) []model.Response {
 
 	return []model.Response{
 		{
