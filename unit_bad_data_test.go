@@ -9,9 +9,7 @@ import (
 	"github.com/cdvelop/model"
 )
 
-var cut = cutkey.Add{
-	Objects: &cutObjects,
-}
+var cut = cutkey.Add(cutObjects...)
 
 func TestDecodeEncodeBadData(t *testing.T) {
 
@@ -30,16 +28,9 @@ func TestDecodeEncodeBadData(t *testing.T) {
 		},
 	}
 
-	data_decode, err := cut.EncodeResponses(requests)
-	if err != nil {
-		log.Fatalf("Error Encoding Packages: %v", err)
-	}
-	// fmt.Printf("%x\n", data_decode)
+	data_decode := cut.EncodeResponses(requests)
 
-	responses, err := cut.DecodeResponses(data_decode)
-	if err != nil {
-		log.Fatalf("Error Decoding Packages: %v", err)
-	}
+	responses := cut.DecodeResponses(data_decode)
 
 	// CASO 0: agregamos al original el module para comparar
 	requests[0].Module = "user"
@@ -67,9 +58,16 @@ func TestDecodeEncodeBadNoData(t *testing.T) {
 		},
 	}
 
-	_, err := cut.EncodeResponses(requests)
-	if err == nil {
-		log.Fatalf("Error Encoding Packages: %v", err)
+	data := cut.EncodeResponses(requests)
+
+	resp := cut.DecodeResponses(data)
+
+	if resp[0].Type != "error" {
+		log.Fatalln("Se esperaba: error en Type se obtuvo:", resp[0].Type)
+	}
+
+	if resp[0].Message != "objeto no incluido en solicitud" {
+		log.Fatalln("Se esperaba: objeto no incluido en solicitud se obtuvo:", resp[0].Message)
 	}
 
 }

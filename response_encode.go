@@ -1,31 +1,29 @@
 package cutkey
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/cdvelop/model"
 	json "github.com/fxamacker/cbor/v2"
 )
 
-func (a Add) EncodeResponses(requests []model.Response) ([]byte, error) {
+func (c cut) EncodeResponses(requests []model.Response) []byte {
 	var CutResponses []model.CutResponse
 
 	// Iteramos por cada Packages para generar un CutResponse para cada uno
 	for i, data := range requests {
 
-		var object model.Object
-		var found_object bool
-
-		for _, obj := range *a.Objects {
+		var object *model.Object
+		for _, obj := range c.objects {
 			if obj.Name == data.Object {
 				object = obj
-				found_object = true
 				break
 			}
 		}
 
-		if !found_object {
-			return nil, fmt.Errorf("objeto %s no encontrado en el slice de objetos", data.Object)
+		if object == nil {
+			return c.encodeError(&data)
+			// return nil, fmt.Errorf("objeto: %s no encontrado en el slice de objetos", data.Object)
 		}
 
 		// Generamos los Cut_data a partir de la data de la respuesta
@@ -55,7 +53,10 @@ func (a Add) EncodeResponses(requests []model.Response) ([]byte, error) {
 	}
 
 	// fmt.Println("\n=> DATA ENCODE:", CutResponses)
-
+	out, err := json.Marshal(CutResponses)
+	if err != nil {
+		log.Println("Error json EncodeResponses: ", err)
+	}
 	// Codificamos el resultado como un array de bytes JSON
-	return json.Marshal(CutResponses)
+	return out
 }
