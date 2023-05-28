@@ -5,7 +5,7 @@ go 1.20
 require github.com/fxamacker/cbor/v2 v2.4.0
 
 require (
-	github.com/cdvelop/model v0.0.21
+	github.com/cdvelop/model v0.0.22
 	github.com/x448/float16 v0.8.4 // indirect
 )
 
