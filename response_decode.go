@@ -34,7 +34,7 @@ func (c Cut) DecodeResponses(data []byte) (responses []model.Response) {
 
 			for _, obj := range c.objects {
 				if obj.Name == cr.CutOptions[1] {
-					object = obj
+					object = &obj
 					break
 				}
 			}

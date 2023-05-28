@@ -4,7 +4,7 @@ import (
 	"github.com/cdvelop/model"
 )
 
-var cutObjects = []*model.Object{
+var cutObjects = []model.Object{
 	{
 		Name: "user",
 		Fields: []model.Field{

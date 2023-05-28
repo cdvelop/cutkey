@@ -16,7 +16,7 @@ func (c Cut) EncodeResponses(requests []model.Response) []byte {
 		var object *model.Object
 		for _, obj := range c.objects {
 			if obj.Name == data.Object {
-				object = obj
+				object = &obj
 				break
 			}
 		}
