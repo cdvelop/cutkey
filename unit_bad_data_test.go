@@ -1,6 +1,7 @@
 package cutkey_test
 
 import (
+	"fmt"
 	"log"
 	"reflect"
 	"testing"
@@ -16,14 +17,14 @@ func TestDecodeEncodeBadData(t *testing.T) {
 	requests := []model.Response{
 
 		{ // CASO 0: sin module y sin mensaje se espera que se iguale el nombre del module al del objeto
-			Type:   "read",
+			Action: "read",
 			Object: "user",
 			Data: []map[string]string{
 				{"name": "bad"},
 			},
 		},
 		{ // CASO 1: sin data
-			Type:   "delete",
+			Action: "delete",
 			Object: "product",
 		},
 	}
@@ -53,7 +54,7 @@ func TestDecodeEncodeBadNoData(t *testing.T) {
 	requests := []model.Response{
 
 		{ // CASO 0: sin nada se espera error
-			Type:   "",
+			Action: "",
 			Object: "",
 		},
 	}
@@ -62,12 +63,14 @@ func TestDecodeEncodeBadNoData(t *testing.T) {
 
 	resp := cut.DecodeResponses(data)
 
-	if resp[0].Type != "error" {
-		log.Fatalln("Se esperaba: error en Type se obtuvo:", resp[0].Type)
+	if resp[0].Action != "error" {
+		log.Fatalln("Se esperaba: error en Action se obtuvo:", resp[0].Action)
 	}
 
 	if resp[0].Message != "objeto no incluido en solicitud" {
 		log.Fatalln("Se esperaba: objeto no incluido en solicitud se obtuvo:", resp[0].Message)
 	}
+
+	fmt.Printf("result:\n\n=>response: %v\n=>expected: %v\n", resp, requests[0])
 
 }

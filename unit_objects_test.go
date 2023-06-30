@@ -4,9 +4,11 @@ import (
 	"github.com/cdvelop/model"
 )
 
-var cutObjects = []model.Object{
+var cutObjects = []*model.Object{
 	{
-		Name: "user",
+		ApiHandler: model.ApiHandler{
+			Name: "user",
+		},
 		Fields: []model.Field{
 			{Name: "name"},
 			{Name: "email"},
@@ -14,7 +16,9 @@ var cutObjects = []model.Object{
 		},
 	},
 	{
-		Name: "product",
+		ApiHandler: model.ApiHandler{
+			Name: "product",
+		},
 		Fields: []model.Field{
 			{Name: "description"},
 			{Name: "price"},

@@ -1,8 +1,9 @@
 package cutkey
 
 import (
+	"encoding/json"
+
 	"github.com/cdvelop/model"
-	json "github.com/fxamacker/cbor/v2"
 
 	"fmt"
 )
@@ -10,6 +11,7 @@ import (
 func (c Cut) DecodeResponses(data []byte) (responses []model.Response) {
 
 	var CutResponses []model.CutResponse
+
 	// Decodificamos el array de bytes JSON en un slice de CutResponse
 	err := json.Unmarshal(data, &CutResponses)
 	if err != nil {
@@ -34,7 +36,7 @@ func (c Cut) DecodeResponses(data []byte) (responses []model.Response) {
 
 			for _, obj := range c.objects {
 				if obj.Name == cr.CutOptions[1] {
-					object = &obj
+					object = obj
 					break
 				}
 			}

@@ -3,8 +3,9 @@ package cutkey
 import (
 	"log"
 
+	"encoding/json"
+
 	"github.com/cdvelop/model"
-	json "github.com/fxamacker/cbor/v2"
 )
 
 func (c Cut) EncodeResponses(requests []model.Response) []byte {
@@ -16,7 +17,7 @@ func (c Cut) EncodeResponses(requests []model.Response) []byte {
 		var object *model.Object
 		for _, obj := range c.objects {
 			if obj.Name == data.Object {
-				object = &obj
+				object = obj
 				break
 			}
 		}
@@ -36,7 +37,7 @@ func (c Cut) EncodeResponses(requests []model.Response) []byte {
 
 		// Generamos el CutResponse
 		CutResponse := model.CutResponse{
-			CutOptions: []string{data.Type, data.Object},
+			CutOptions: []string{data.Action, data.Object},
 			CutData:    cut_data,
 		}
 

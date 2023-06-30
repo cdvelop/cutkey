@@ -3,8 +3,9 @@ package cutkey
 import (
 	"log"
 
+	"encoding/json"
+
 	"github.com/cdvelop/model"
-	json "github.com/fxamacker/cbor/v2"
 )
 
 func (Cut) encodeError(r *model.Response) []byte {
@@ -32,7 +33,7 @@ func (Cut) decodeError(object string, message error) []model.Response {
 
 	return []model.Response{
 		{
-			Type:    "error",
+			Action:  "error",
 			Object:  object,
 			Module:  "error",
 			Message: message.Error(),

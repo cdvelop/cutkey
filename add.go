@@ -5,13 +5,11 @@ import (
 )
 
 type Cut struct {
-	objects []model.Object
+	objects []*model.Object
 }
 
-func Add(objects ...model.Object) *Cut {
+func Add(objects ...*model.Object) *Cut {
 	c := Cut{}
-	for _, o := range objects {
-		c.objects = append(c.objects, o)
-	}
+	c.objects = append(c.objects, objects...)
 	return &c
 }

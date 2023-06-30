@@ -12,7 +12,7 @@ func TestDecodeEncode(t *testing.T) {
 
 	requests := []model.Response{
 		{
-			Type:    "read",
+			Action:  "read",
 			Object:  "user",
 			Module:  "Users",
 			Message: "ok",
@@ -22,7 +22,7 @@ func TestDecodeEncode(t *testing.T) {
 			},
 		},
 		{
-			Type:    "create",
+			Action:  "create",
 			Object:  "product",
 			Module:  "Products",
 			Message: "ok",
