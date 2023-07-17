@@ -34,7 +34,10 @@ func TestDecodeEncode(t *testing.T) {
 		},
 	}
 
-	data_encode := cut.EncodeResponses(requests)
+	data_encode, err := cut.EncodeResponses(requests)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	responses := cut.DecodeResponses(data_encode)
 

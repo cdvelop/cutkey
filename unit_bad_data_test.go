@@ -1,7 +1,6 @@
 package cutkey_test
 
 import (
-	"fmt"
 	"log"
 	"reflect"
 	"testing"
@@ -29,7 +28,10 @@ func TestDecodeEncodeBadData(t *testing.T) {
 		},
 	}
 
-	data_decode := cut.EncodeResponses(requests)
+	data_decode, err := cut.EncodeResponses(requests)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	responses := cut.DecodeResponses(data_decode)
 
@@ -59,7 +61,10 @@ func TestDecodeEncodeBadNoData(t *testing.T) {
 		},
 	}
 
-	data := cut.EncodeResponses(requests)
+	data, err := cut.EncodeResponses(requests)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	resp := cut.DecodeResponses(data)
 
@@ -71,6 +76,6 @@ func TestDecodeEncodeBadNoData(t *testing.T) {
 		log.Fatalln("Se esperaba: objeto no incluido en solicitud se obtuvo:", resp[0].Message)
 	}
 
-	fmt.Printf("result:\n\n=>response: %v\n=>expected: %v\n", resp, requests[0])
+	// fmt.Printf("result:\n\n=>response: %v\n=>expected: %v\n", resp, requests[0])
 
 }

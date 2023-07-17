@@ -1,14 +1,14 @@
 package cutkey
 
 import (
-	"log"
+	"fmt"
 
 	"encoding/json"
 
 	"github.com/cdvelop/model"
 )
 
-func (c Cut) EncodeResponses(requests []model.Response) []byte {
+func (c Cut) EncodeResponses(requests []model.Response) ([]byte, error) {
 	var CutResponses []model.CutResponse
 
 	// Iteramos por cada Packages para generar un CutResponse para cada uno
@@ -24,7 +24,6 @@ func (c Cut) EncodeResponses(requests []model.Response) []byte {
 
 		if object == nil {
 			return c.encodeError(&data)
-			// return nil, fmt.Errorf("objeto: %s no encontrado en el slice de objetos", data.Object)
 		}
 
 		// Generamos los Cut_data a partir de la data de la respuesta
@@ -56,8 +55,8 @@ func (c Cut) EncodeResponses(requests []model.Response) []byte {
 	// fmt.Println("\n=> DATA ENCODE:", CutResponses)
 	out, err := json.Marshal(CutResponses)
 	if err != nil {
-		log.Println("Error json EncodeResponses: ", err)
+		return nil, fmt.Errorf("error json EncodeResponses: %v", err)
 	}
 	// Codificamos el resultado como un array de bytes JSON
-	return out
+	return out, nil
 }

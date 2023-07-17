@@ -6,9 +6,7 @@ import (
 
 var cutObjects = []*model.Object{
 	{
-		ApiHandler: model.ApiHandler{
-			Name: "user",
-		},
+		Name: "user",
 		Fields: []model.Field{
 			{Name: "name"},
 			{Name: "email"},
@@ -16,9 +14,7 @@ var cutObjects = []*model.Object{
 		},
 	},
 	{
-		ApiHandler: model.ApiHandler{
-			Name: "product",
-		},
+		Name: "product",
 		Fields: []model.Field{
 			{Name: "description"},
 			{Name: "price"},
