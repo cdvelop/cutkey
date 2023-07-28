@@ -14,7 +14,6 @@ func TestDecodeEncode(t *testing.T) {
 		{
 			Action:  "read",
 			Object:  "user",
-			Module:  "Users",
 			Message: "ok",
 			Data: []map[string]string{
 				{"name": "John Doe", "email": "johndoe@example.com", "phone": ""},
@@ -24,7 +23,6 @@ func TestDecodeEncode(t *testing.T) {
 		{
 			Action:  "create",
 			Object:  "product",
-			Module:  "Products",
 			Message: "ok",
 			Data: []map[string]string{
 				{"description": "Manzanas", "price": "6000"},

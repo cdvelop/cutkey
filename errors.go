@@ -13,7 +13,6 @@ func (Cut) encodeError(r *model.Response) (out []byte, err error) {
 			CutOptions: []string{
 				"error",
 				r.Object,
-				r.Module,
 				r.Message,
 			},
 			CutData: []model.CutData{},

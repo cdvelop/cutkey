@@ -35,14 +35,12 @@ func TestDecodeEncodeBadData(t *testing.T) {
 
 	responses := cut.DecodeResponses(data_decode)
 
-	// CASO 0: agregamos al original el module para comparar
-	requests[0].Module = "user"
+	// CASO 0:
 	if !reflect.DeepEqual(responses[0], requests[0]) {
 		log.Fatalf("Unexpected result:\n\n=>response: %v\n=>expected: %v\n", responses[0], requests[0])
 	}
 
-	// CASO 1: agregamos al original el module para comparar
-	requests[1].Module = "product"
+	// CASO 1:
 	if !reflect.DeepEqual(responses[1], requests[1]) {
 		log.Fatalf("Unexpected result:\n\n=>response: %v\n=>expected: %v\n", responses[1], requests[1])
 	}

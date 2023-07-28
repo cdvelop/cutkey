@@ -12,13 +12,13 @@ func Decode(in io.Reader, o *model.Object) ([]map[string]string, error) {
 
 	if in != nil && o != nil {
 
-		var cut_data model.CutData
+		var cut_data []model.CutData
 		err := json.NewDecoder(in).Decode(&cut_data)
 		if err != nil {
 			return nil, err
 		}
 
-		data, err := o.DataDecode(cut_data)
+		data, err := o.DataDecode(cut_data...)
 		if err != nil {
 			return nil, err
 		}

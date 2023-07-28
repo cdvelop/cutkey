@@ -6,11 +6,11 @@ import (
 	"github.com/cdvelop/model"
 )
 
-func Encode(o *model.Object, data map[string]string) (out []byte, err error) {
+func Encode(o *model.Object, data ...map[string]string) (out []byte, err error) {
 
 	if o != nil && data != nil {
 
-		cd := o.DataEncode(data)
+		cd := o.DataEncode(data...)
 
 		out, err = json.Marshal(cd)
 		if err != nil {

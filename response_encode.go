@@ -12,7 +12,7 @@ func (c Cut) EncodeResponses(requests []model.Response) ([]byte, error) {
 	var CutResponses []model.CutResponse
 
 	// Iteramos por cada Packages para generar un CutResponse para cada uno
-	for i, data := range requests {
+	for _, data := range requests {
 
 		var object *model.Object
 		for _, obj := range c.objects {
@@ -26,22 +26,10 @@ func (c Cut) EncodeResponses(requests []model.Response) ([]byte, error) {
 			return c.encodeError(&data)
 		}
 
-		// Generamos los Cut_data a partir de la data de la respuesta
-		var cut_data []model.CutData
-		for _, m := range data.Data {
-			cut_data = append(cut_data, object.DataEncode(m))
-		}
-		//actualizamos la data original
-		requests[i] = data
-
 		// Generamos el CutResponse
 		CutResponse := model.CutResponse{
 			CutOptions: []string{data.Action, data.Object},
-			CutData:    cut_data,
-		}
-
-		if data.Module != "" {
-			CutResponse.CutOptions = append(CutResponse.CutOptions, data.Module)
+			CutData:    object.DataEncode(data.Data...),
 		}
 
 		if data.Message != "" {
