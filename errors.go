@@ -30,11 +30,9 @@ func (Cut) decodeError(object string, message error) []model.Response {
 
 	return []model.Response{
 		{
-			Action: "error",
-			Object: object,
-			// Module:  "error",
+			Action:  "error",
+			Object:  object,
 			Message: message.Error(),
-			// Data:    []map[string]string{},
 		},
 	}
 

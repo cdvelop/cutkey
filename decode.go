@@ -15,7 +15,7 @@ func Decode(in io.Reader, o *model.Object) ([]map[string]string, error) {
 		var cut_data []model.CutData
 		err := json.NewDecoder(in).Decode(&cut_data)
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("error decode json %s", err)
 		}
 
 		data, err := o.DataDecode(cut_data...)

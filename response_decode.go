@@ -43,6 +43,8 @@ func (c Cut) DecodeResponses(data []byte) (responses []model.Response) {
 
 			if object == nil {
 
+				// fmt.Println("OBJETO NULO")
+
 				if cr.CutOptions[1] == "" {
 					return c.decodeError("error", fmt.Errorf("objeto no incluido en solicitud"))
 
@@ -52,9 +54,11 @@ func (c Cut) DecodeResponses(data []byte) (responses []model.Response) {
 
 				} else {
 
-					if len(cr.CutOptions) > 3 && cr.CutOptions[3] != "" { //Message
+					// fmt.Println("MENSAJE: ", cr.CutOptions[2])
+
+					if len(cr.CutOptions) == 3 && cr.CutOptions[2] != "" { //Message
 						// fmt.Println("contiene mensaje")
-						return c.decodeError(cr.CutOptions[1], fmt.Errorf(cr.CutOptions[3]))
+						return c.decodeError(cr.CutOptions[1], fmt.Errorf(cr.CutOptions[2]))
 					} else {
 						return c.decodeError(cr.CutOptions[1], fmt.Errorf("error"))
 					}
