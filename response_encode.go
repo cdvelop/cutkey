@@ -23,7 +23,7 @@ func (c Cut) EncodeResponses(requests []model.Response) ([]byte, error) {
 		}
 
 		if object == nil {
-			return c.encodeError(&data)
+			return c.encodeError(&data, "objeto "+data.Object+" no registrado en cutkey")
 		}
 
 		// Generamos el CutResponse

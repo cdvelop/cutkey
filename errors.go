@@ -6,14 +6,19 @@ import (
 	"github.com/cdvelop/model"
 )
 
-func (Cut) encodeError(r *model.Response) (out []byte, err error) {
+func (Cut) encodeError(r *model.Response, error_message string) (out []byte, err error) {
+
+	var space string
+	if error_message != "" {
+		space = " "
+	}
 
 	out, err = json.Marshal([]model.CutResponse{
 		{
 			CutOptions: []string{
 				"error",
 				r.Object,
-				r.Message,
+				error_message + space + r.Message,
 			},
 			CutData: []model.CutData{},
 		},
