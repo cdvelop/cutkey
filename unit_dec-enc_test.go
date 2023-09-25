@@ -40,7 +40,7 @@ func TestDecodeEncode(t *testing.T) {
 	responses := cut.DecodeResponses(data_encode)
 
 	if !reflect.DeepEqual(responses, requests) {
-		log.Fatalf("Unexpected result:\n\n=>response: %v\n=>expected: %v\n", responses, requests)
+		log.Fatalf("Unexpected result:\n\n=>response:\n%v\n\n=>expected:\n%v\n", responses, requests)
 	}
 
 }
