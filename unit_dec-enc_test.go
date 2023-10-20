@@ -37,6 +37,8 @@ func TestDecodeEncode(t *testing.T) {
 		log.Fatal(err)
 	}
 
+	// fmt.Printf("|||-%s-|||\n", data_encode)
+
 	responses := cut.DecodeResponses(data_encode)
 
 	if !reflect.DeepEqual(responses, requests) {

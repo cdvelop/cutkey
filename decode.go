@@ -2,7 +2,6 @@ package cutkey
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 
 	"github.com/cdvelop/model"
@@ -15,7 +14,7 @@ func Decode(in io.Reader, o *model.Object) ([]map[string]string, error) {
 		var cut_data []model.CutData
 		err := json.NewDecoder(in).Decode(&cut_data)
 		if err != nil {
-			return nil, fmt.Errorf("error decode json %s", err)
+			return nil, model.Error("error decode json %s", err)
 		}
 
 		data, err := o.DataDecode(cut_data...)
@@ -27,7 +26,7 @@ func Decode(in io.Reader, o *model.Object) ([]map[string]string, error) {
 
 	} else {
 
-		return nil, fmt.Errorf("error objeto nulo al decodificar")
+		return nil, model.Error("error objeto nulo al decodificar")
 	}
 
 }

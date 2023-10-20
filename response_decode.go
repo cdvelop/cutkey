@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 
 	"github.com/cdvelop/model"
-
-	"fmt"
 )
 
 func (c Cut) DecodeResponses(data []byte) (responses []model.Response) {
@@ -24,12 +22,12 @@ func (c Cut) DecodeResponses(data []byte) (responses []model.Response) {
 
 			// fmt.Printf("TAMAÑO CutOptions: %v\n", len(CutResponses[0].CutOptions))
 			if len(CutResponses[i].CutOptions) < 2 || len(CutResponses[i].CutOptions) > 4 {
-				return c.decodeError("error", fmt.Errorf("CutOptions incorrectas en DecodeResponses %s ", CutResponses[i].CutOptions))
+				return c.decodeError("error", model.Error("CutOptions incorrectas en DecodeResponses %s ", CutResponses[i].CutOptions))
 
 			}
 
 			if i >= len(CutResponses) {
-				return c.decodeError("error", fmt.Errorf("índice fuera de rango en CutResponses: %d", i))
+				return c.decodeError("error", model.Error("índice fuera de rango en CutResponses: %d", i))
 			}
 
 			var object *model.Object
@@ -44,13 +42,16 @@ func (c Cut) DecodeResponses(data []byte) (responses []model.Response) {
 			if object == nil {
 
 				// fmt.Println("OBJETO NULO")
+				if cr.CutOptions[0] == "error" && len(cr.CutOptions) == 2 {
+					return c.decodeError("", model.Error(cr.CutOptions[1]))
+				}
 
 				if cr.CutOptions[1] == "" {
-					return c.decodeError("error", fmt.Errorf("objeto no incluido en solicitud"))
+					return c.decodeError("", model.Error("objeto no incluido en solicitud"))
 
 				} else if cr.CutOptions[1] != "error" {
 
-					return c.decodeError(cr.CutOptions[1], fmt.Errorf("objeto: %s no encontrado en el slice de objetos", cr.CutOptions[1]))
+					return c.decodeError(cr.CutOptions[1], model.Error("objeto: %s no encontrado en el slice de objetos", cr.CutOptions[1]))
 
 				} else {
 
@@ -58,9 +59,9 @@ func (c Cut) DecodeResponses(data []byte) (responses []model.Response) {
 
 					if len(cr.CutOptions) == 3 && cr.CutOptions[2] != "" { //Message
 						// fmt.Println("contiene mensaje")
-						return c.decodeError(cr.CutOptions[1], fmt.Errorf(cr.CutOptions[2]))
+						return c.decodeError(cr.CutOptions[1], model.Error(cr.CutOptions[2]))
 					} else {
-						return c.decodeError(cr.CutOptions[1], fmt.Errorf("error"))
+						return c.decodeError(cr.CutOptions[1], model.Error("error"))
 					}
 
 				}

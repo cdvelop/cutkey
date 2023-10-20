@@ -64,10 +64,18 @@ func TestDecodeEncodeBadNoData(t *testing.T) {
 		log.Fatal(err)
 	}
 
+	// fmt.Printf("|||-%s-|||\n", data)
+
 	resp := cut.DecodeResponses(data)
+
+	// fmt.Printf("resp|||-%s-|||\n", resp)
 
 	if resp[0].Action != "error" {
 		log.Fatalln("Se esperaba: error en Action se obtuvo:", resp[0].Action)
+	}
+
+	if resp[0].Object != "" {
+		t.Fatalf("Se esperaba objeto vació pero obtuvo:%v", resp[0].Object)
 	}
 
 	if resp[0].Message != "objeto no incluido en solicitud" {
