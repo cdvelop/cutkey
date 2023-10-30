@@ -8,7 +8,7 @@ import (
 
 func Encode(o *model.Object, data ...map[string]string) (out []byte, err error) {
 
-	if o != nil && data != nil {
+	if o != nil {
 
 		cd := o.DataEncode(data...)
 
@@ -16,8 +16,11 @@ func Encode(o *model.Object, data ...map[string]string) (out []byte, err error) 
 		if err != nil {
 			return nil, err
 		}
-	}
 
-	return out, nil
+		return out, nil
+
+	} else {
+		return nil, model.Error("error cutkey Encode nil object")
+	}
 
 }
