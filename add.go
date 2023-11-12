@@ -4,12 +4,14 @@ import (
 	"github.com/cdvelop/model"
 )
 
-type Cut struct {
-	objects []*model.Object
+type cut struct {
+	model.ObjectsHandler
 }
 
-func Add(objects ...*model.Object) *Cut {
-	c := Cut{}
-	c.objects = append(c.objects, objects...)
-	return &c
+func AddDataConverter(h *model.Handlers) {
+	c := &cut{
+		ObjectsHandler: h,
+	}
+
+	h.DataConverter = c
 }

@@ -34,12 +34,15 @@ func TestDecodeEncode(t *testing.T) {
 
 	data_encode, err := cut.EncodeResponses(requests)
 	if err != nil {
-		log.Fatal(err)
+		t.Fatal(err)
 	}
 
 	// fmt.Printf("|||-%s-|||\n", data_encode)
 
-	responses := cut.DecodeResponses(data_encode)
+	responses, err := cut.DecodeResponses(data_encode)
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	if !reflect.DeepEqual(responses, requests) {
 		log.Fatalf("Unexpected result:\n\n=>response:\n%v\n\n=>expected:\n%v\n", responses, requests)

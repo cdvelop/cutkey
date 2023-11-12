@@ -1,7 +1,6 @@
 package cutkey_test
 
 import (
-	"log"
 	"reflect"
 	"testing"
 
@@ -9,9 +8,12 @@ import (
 	"github.com/cdvelop/model"
 )
 
-var cut = cutkey.Add(cutObjects...)
+var cut model.Handlers
 
 func TestDecodeEncodeBadData(t *testing.T) {
+	cut = model.Handlers{}
+	cut.AddObjects(cutObjects...)
+	cutkey.AddDataConverter(&cut)
 
 	requests := []model.Response{
 
@@ -30,19 +32,22 @@ func TestDecodeEncodeBadData(t *testing.T) {
 
 	data_decode, err := cut.EncodeResponses(requests)
 	if err != nil {
-		log.Fatal(err)
+		t.Fatal(err)
 	}
 
-	responses := cut.DecodeResponses(data_decode)
+	responses, err := cut.DecodeResponses(data_decode)
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	// CASO 0:
 	if !reflect.DeepEqual(responses[0], requests[0]) {
-		log.Fatalf("Unexpected result:\n\n=>response: %v\n=>expected: %v\n", responses[0], requests[0])
+		t.Fatalf("Unexpected result:\n\n=>response: %v\n=>expected: %v\n", responses[0], requests[0])
 	}
 
 	// CASO 1:
 	if !reflect.DeepEqual(responses[1], requests[1]) {
-		log.Fatalf("Unexpected result:\n\n=>response: %v\n=>expected: %v\n", responses[1], requests[1])
+		t.Fatalf("Unexpected result:\n\n=>response: %v\n=>expected: %v\n", responses[1], requests[1])
 	}
 
 	// fmt.Printf("result:\n\n=>response: %v\n=>expected: %v\n", responses[1], requests[1])
@@ -60,28 +65,15 @@ func TestDecodeEncodeBadNoData(t *testing.T) {
 	}
 
 	data, err := cut.EncodeResponses(requests)
-	if err != nil {
-		log.Fatal(err)
+	if err == nil {
+		t.Fatal("se esperaba error EncodeResponses y no se obtuvo", err)
 	}
 
 	// fmt.Printf("|||-%s-|||\n", data)
 
-	resp := cut.DecodeResponses(data)
-
-	// fmt.Printf("resp|||-%s-|||\n", resp)
-
-	if resp[0].Action != "error" {
-		log.Fatalln("Se esperaba: error en Action se obtuvo:", resp[0].Action)
+	resp, err := cut.DecodeResponses(data)
+	if err == nil {
+		t.Fatal("se esperaba error DecodeResponses y no se obtuvo", err, resp)
 	}
-
-	if resp[0].Object != "" {
-		t.Fatalf("Se esperaba objeto vació pero obtuvo:%v", resp[0].Object)
-	}
-
-	if resp[0].Message != "objeto no incluido en solicitud" {
-		log.Fatalln("Se esperaba: objeto no incluido en solicitud se obtuvo:", resp[0].Message)
-	}
-
-	// fmt.Printf("result:\n\n=>response: %v\n=>expected: %v\n", resp, requests[0])
 
 }

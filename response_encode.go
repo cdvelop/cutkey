@@ -6,22 +6,16 @@ import (
 	"github.com/cdvelop/model"
 )
 
-func (c Cut) EncodeResponses(requests []model.Response) ([]byte, error) {
+func (c cut) EncodeResponses(requests []model.Response) ([]byte, error) {
+
 	var CutResponses []model.CutResponse
 
 	// Iteramos por cada Packages para generar un CutResponse para cada uno
 	for _, data := range requests {
 
-		var object *model.Object
-		for _, obj := range c.objects {
-			if obj.Name == data.Object {
-				object = obj
-				break
-			}
-		}
-
-		if object == nil {
-			return c.encodeError(&data, "objeto "+data.Object+" no registrado en cutkey")
+		object, err := c.GetObjectByName(data.Object)
+		if err != nil {
+			return nil, err
 		}
 
 		// Generamos el CutResponse
