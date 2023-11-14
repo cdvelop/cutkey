@@ -5,10 +5,14 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/cdvelop/cutkey"
 	"github.com/cdvelop/model"
 )
 
 func TestDecodeEncode(t *testing.T) {
+	handler := model.Handlers{}
+	handler.AddObjects(cutObjects...)
+	cutkey.AddDataConverter(&handler)
 
 	requests := []model.Response{
 		{
@@ -32,14 +36,14 @@ func TestDecodeEncode(t *testing.T) {
 		},
 	}
 
-	data_encode, err := cut.EncodeResponses(requests)
+	data_encode, err := handler.EncodeResponses(requests)
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	// fmt.Printf("|||-%s-|||\n", data_encode)
 
-	responses, err := cut.DecodeResponses(data_encode)
+	responses, err := handler.DecodeResponses(data_encode)
 	if err != nil {
 		t.Fatal(err)
 	}

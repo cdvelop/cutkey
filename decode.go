@@ -13,11 +13,11 @@ func (c cut) DecodeMaps(in []byte, object_name ...string) ([]map[string]string, 
 
 	o, err := c.GetObjectByName(name)
 	if err != nil {
-		return decodeMaps(in)
+		return c.decodeMaps(in)
 	}
 
 	if len(o.Fields) == 0 { // objeto sin campos salida normal
-		return decodeMaps(in)
+		return c.decodeMaps(in)
 	}
 
 	var cut_data []model.CutData
@@ -35,10 +35,9 @@ func (c cut) DecodeMaps(in []byte, object_name ...string) ([]map[string]string, 
 
 }
 
-func decodeMaps(in []byte) ([]map[string]string, error) {
+func (c cut) decodeMaps(in []byte) ([]map[string]string, error) {
 
 	const message = "tipo de dato no soportado:"
-	// fmt.Println("DATA ENTRADA:", in)
 
 	var data interface{}
 
@@ -67,10 +66,9 @@ func decodeMaps(in []byte) ([]map[string]string, error) {
 	case map[string]interface{}:
 		return []map[string]string{convertMap(items)}, nil
 	default:
-		// fmt.Printf("data (%T): %v\n", data_nn, data_nn)
+		c.Log(message, "decodeMaps data (%T): %v", items, items)
 		return nil, model.Error(message, data)
 	}
-	// return nil, model.Error("error DecodeMaps tipo de dato no soportado")
 }
 
 func convertMap(input map[string]interface{}) map[string]string {

@@ -18,10 +18,14 @@ func (c cut) EncodeResponses(requests []model.Response) ([]byte, error) {
 			return nil, err
 		}
 
+		cut_data, err := object.DataEncode(data.Data...)
+		if err != nil {
+			return nil, err
+		}
 		// Generamos el CutResponse
 		CutResponse := model.CutResponse{
 			CutOptions: []string{data.Action, data.Object},
-			CutData:    object.DataEncode(data.Data...),
+			CutData:    cut_data,
 		}
 
 		if data.Message != "" {

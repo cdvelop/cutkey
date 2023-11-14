@@ -8,12 +8,10 @@ import (
 	"github.com/cdvelop/model"
 )
 
-var cut model.Handlers
-
 func TestDecodeEncodeBadData(t *testing.T) {
-	cut = model.Handlers{}
-	cut.AddObjects(cutObjects...)
-	cutkey.AddDataConverter(&cut)
+	handler := model.Handlers{}
+	handler.AddObjects(cutObjects...)
+	cutkey.AddDataConverter(&handler)
 
 	requests := []model.Response{
 
@@ -30,12 +28,12 @@ func TestDecodeEncodeBadData(t *testing.T) {
 		},
 	}
 
-	data_decode, err := cut.EncodeResponses(requests)
+	data_decode, err := handler.EncodeResponses(requests)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	responses, err := cut.DecodeResponses(data_decode)
+	responses, err := handler.DecodeResponses(data_decode)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -56,6 +54,10 @@ func TestDecodeEncodeBadData(t *testing.T) {
 
 func TestDecodeEncodeBadNoData(t *testing.T) {
 
+	handler := model.Handlers{}
+	// handler.AddObjects(cutObjects...)
+	cutkey.AddDataConverter(&handler)
+
 	requests := []model.Response{
 
 		{ // CASO 0: sin nada se espera error
@@ -64,14 +66,14 @@ func TestDecodeEncodeBadNoData(t *testing.T) {
 		},
 	}
 
-	data, err := cut.EncodeResponses(requests)
+	data, err := handler.EncodeResponses(requests)
 	if err == nil {
 		t.Fatal("se esperaba error EncodeResponses y no se obtuvo", err)
 	}
 
 	// fmt.Printf("|||-%s-|||\n", data)
 
-	resp, err := cut.DecodeResponses(data)
+	resp, err := handler.DecodeResponses(data)
 	if err == nil {
 		t.Fatal("se esperaba error DecodeResponses y no se obtuvo", err, resp)
 	}
