@@ -32,7 +32,7 @@ func (c cut) DecodeResponses(data []byte) (responses []model.Response, err error
 
 			object, err := c.GetObjectByName(cr.CutOptions[1])
 			if err != nil {
-				return nil, err
+				return nil, model.Error("DecodeResponses", err)
 			}
 
 			data, err := object.DataDecode(cr.CutData...)

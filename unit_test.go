@@ -40,7 +40,7 @@ func TestWhitObjectWhitOutFieldsAndSliceMaps(t *testing.T) {
 	object_name := "object_without_fields"
 
 	object_without_fields := model.Object{
-		Name: object_name,
+		ObjectName: object_name,
 	}
 
 	handler := model.Handlers{}
@@ -74,7 +74,7 @@ func TestWhitObjectAndOneMapIN(t *testing.T) {
 	object_name := "object_without_fields"
 
 	object_without_fields := model.Object{
-		Name: object_name,
+		ObjectName: object_name,
 	}
 
 	handler := model.Handlers{}
@@ -107,7 +107,7 @@ func TestObjectWhitFieldAndOneMapIN(t *testing.T) {
 	object_name := "product"
 
 	object_without_fields := model.Object{
-		Name: object_name,
+		ObjectName: object_name,
 		Fields: []model.Field{
 			{Name: "description"},
 			{Name: "price"},
@@ -144,7 +144,7 @@ func TestObjectWhitFieldAndTwoMapsIN(t *testing.T) {
 	object_name := "product"
 
 	object_without_fields := model.Object{
-		Name: object_name,
+		ObjectName: object_name,
 		Fields: []model.Field{
 			{Name: "description"},
 			{Name: "price"},

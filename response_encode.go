@@ -6,7 +6,7 @@ import (
 	"github.com/cdvelop/model"
 )
 
-func (c cut) EncodeResponses(requests []model.Response) ([]byte, error) {
+func (c cut) EncodeResponses(requests ...model.Response) ([]byte, error) {
 
 	var CutResponses []model.CutResponse
 
@@ -15,7 +15,7 @@ func (c cut) EncodeResponses(requests []model.Response) ([]byte, error) {
 
 		object, err := c.GetObjectByName(data.Object)
 		if err != nil {
-			return nil, err
+			return nil, model.Error("EncodeResponses", err)
 		}
 
 		cut_data, err := object.DataEncode(data.Data...)

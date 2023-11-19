@@ -21,6 +21,8 @@ func (c cut) EncodeMaps(map_in any, object_name ...string) (out []byte, err erro
 		return jsonEncode(map_in)
 	}
 
+	// fmt.Println("CAMPOS OBJETO FILE:", o.Name, o.Fields)
+
 	// desde aca podemos recortar la información
 	var cd []model.CutData
 

@@ -36,7 +36,7 @@ func TestDecodeEncode(t *testing.T) {
 		},
 	}
 
-	data_encode, err := handler.EncodeResponses(requests)
+	data_encode, err := handler.EncodeResponses(requests...)
 	if err != nil {
 		t.Fatal(err)
 	}

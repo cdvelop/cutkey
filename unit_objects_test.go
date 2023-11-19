@@ -6,7 +6,7 @@ import (
 
 var cutObjects = []*model.Object{
 	{
-		Name: "user",
+		ObjectName: "user",
 		Fields: []model.Field{
 			{Name: "name"},
 			{Name: "email"},
@@ -14,7 +14,7 @@ var cutObjects = []*model.Object{
 		},
 	},
 	{
-		Name: "product",
+		ObjectName: "product",
 		Fields: []model.Field{
 			{Name: "description"},
 			{Name: "price"},
