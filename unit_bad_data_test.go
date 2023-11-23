@@ -29,13 +29,15 @@ func TestDecodeEncodeBadData(t *testing.T) {
 	}
 
 	data_decode, err := handler.EncodeResponses(requests...)
-	if err != nil {
+	if err != "" {
 		t.Fatal(err)
+		return
 	}
 
 	responses, err := handler.DecodeResponses(data_decode)
-	if err != nil {
+	if err != "" {
 		t.Fatal(err)
+		return
 	}
 
 	// CASO 0:
@@ -67,15 +69,17 @@ func TestDecodeEncodeBadNoData(t *testing.T) {
 	}
 
 	data, err := handler.EncodeResponses(requests...)
-	if err == nil {
+	if err == "" {
 		t.Fatal("se esperaba error EncodeResponses y no se obtuvo", err)
+		return
 	}
 
 	// fmt.Printf("|||-%s-|||\n", data)
 
 	resp, err := handler.DecodeResponses(data)
-	if err == nil {
+	if err == "" {
 		t.Fatal("se esperaba error DecodeResponses y no se obtuvo", err, resp)
+		return
 	}
 
 }

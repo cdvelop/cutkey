@@ -2,24 +2,22 @@ package cutkey
 
 import (
 	"encoding/json"
-
-	"github.com/cdvelop/model"
 )
 
-func jsonEncode(in any) ([]byte, error) {
-	out, err := json.Marshal(in)
-	if err != nil {
-		return nil, model.Error("error json encode", err)
+func jsonEncode(in any) (result []byte, err string) {
+	out, e := json.Marshal(in)
+	if e != nil {
+		return nil, "error json encode" + e.Error()
 	}
-	return out, nil
+	return out, ""
 }
 
-func jsonDecode(in []byte, out any) error {
+func jsonDecode(in []byte, out any) (err string) {
 
-	err := json.Unmarshal(in, &out)
-	if err != nil {
-		return model.Error("error json decode", err)
+	e := json.Unmarshal(in, &out)
+	if e != nil {
+		return "error json decode " + e.Error()
 	}
 
-	return nil
+	return ""
 }

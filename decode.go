@@ -4,7 +4,7 @@ import (
 	"github.com/cdvelop/model"
 )
 
-func (c cut) DecodeMaps(in []byte, object_name ...string) ([]map[string]string, error) {
+func (c cut) DecodeMaps(in []byte, object_name ...string) (data []map[string]string, err string) {
 
 	var name string
 	for _, v := range object_name {
@@ -12,7 +12,7 @@ func (c cut) DecodeMaps(in []byte, object_name ...string) ([]map[string]string, 
 	}
 
 	o, err := c.GetObjectByName(name)
-	if err != nil {
+	if err != "" {
 		return c.decodeMaps(in)
 	}
 
@@ -22,33 +22,28 @@ func (c cut) DecodeMaps(in []byte, object_name ...string) ([]map[string]string, 
 
 	var cut_data []model.CutData
 	err = jsonDecode(in, &cut_data)
-	if err != nil {
-		return nil, err
+	if err != "" {
+		return nil, "DecodeMaps error " + err
 	}
 
-	data, err := o.DataDecode(cut_data...)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
+	return o.DataDecode(cut_data...)
 
 }
 
-func (c cut) decodeMaps(in []byte) ([]map[string]string, error) {
+func (c cut) decodeMaps(in []byte) (result []map[string]string, err string) {
 
-	const message = "tipo de dato no soportado:"
+	const message = "decodeMaps error. tipo de dato no soportado:"
 
 	var data interface{}
 
-	err := jsonDecode(in, &data)
-	if err != nil {
-		return nil, err
+	err = jsonDecode(in, &data)
+	if err != "" {
+		return nil, "decodeMaps jsonDecode error " + err
 	}
 
 	switch items := data.(type) {
 	case []interface{}:
-		result := make([]map[string]string, len(items))
+		result = make([]map[string]string, len(items))
 		for i, item := range items {
 			if itemData, ok := item.(map[string]interface{}); ok {
 				stringMap := make(map[string]string)
@@ -59,15 +54,17 @@ func (c cut) decodeMaps(in []byte) ([]map[string]string, error) {
 				}
 				result[i] = stringMap
 			} else {
-				return nil, model.Error(message, item)
+				// fmt.Printf(message+" %t",item)
+				c.Log(message, "decodeMaps data (%T): %v", items, items)
+				return nil, message
 			}
 		}
-		return result, nil
+		return result, ""
 	case map[string]interface{}:
-		return []map[string]string{convertMap(items)}, nil
+		return []map[string]string{convertMap(items)}, ""
 	default:
 		c.Log(message, "decodeMaps data (%T): %v", items, items)
-		return nil, model.Error(message, data)
+		return nil, message
 	}
 }
 

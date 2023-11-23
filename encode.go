@@ -5,7 +5,7 @@ import (
 )
 
 // soportados: []map[string]string,map[string]string
-func (c cut) EncodeMaps(map_in any, object_name ...string) (out []byte, err error) {
+func (c cut) EncodeMaps(map_in any, object_name ...string) (out []byte, err string) {
 
 	var name string
 	for _, v := range object_name {
@@ -13,7 +13,7 @@ func (c cut) EncodeMaps(map_in any, object_name ...string) (out []byte, err erro
 	}
 
 	o, err := c.GetObjectByName(name)
-	if err != nil {
+	if err != "" {
 		return jsonEncode(map_in)
 	}
 
@@ -34,10 +34,12 @@ func (c cut) EncodeMaps(map_in any, object_name ...string) (out []byte, err erro
 		cd, err = o.DataEncode(data)
 
 	default:
-		return nil, model.Error("error EncodeMaps tipo de dato no soportado", data)
+		const msg = "EncodeMaps error tipo de dato no soportado"
+		c.Log(msg, data)
+		return nil, msg
 	}
 
-	if err != nil {
+	if err != "" {
 		return nil, err
 	}
 

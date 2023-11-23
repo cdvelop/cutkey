@@ -37,15 +37,17 @@ func TestDecodeEncode(t *testing.T) {
 	}
 
 	data_encode, err := handler.EncodeResponses(requests...)
-	if err != nil {
+	if err != "" {
 		t.Fatal(err)
+		return
 	}
 
 	// fmt.Printf("|||-%s-|||\n", data_encode)
 
 	responses, err := handler.DecodeResponses(data_encode)
-	if err != nil {
+	if err != "" {
 		t.Fatal(err)
+		return
 	}
 
 	if !reflect.DeepEqual(responses, requests) {

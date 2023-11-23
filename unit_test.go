@@ -19,12 +19,12 @@ func TestWhitOutObject(t *testing.T) {
 	}
 
 	out, err := handler.EncodeMaps(expected)
-	if err != nil {
+	if err != "" {
 		t.Fatal("no se esperaba error en cut.EncodeMaps y se obtuvo", err, out)
 	}
 
 	result, err := handler.DecodeMaps(out)
-	if err != nil {
+	if err != "" {
 		t.Fatal("no se esperaba error en cut.DecodeMaps y se obtuvo", err, result)
 	}
 
@@ -53,12 +53,12 @@ func TestWhitObjectWhitOutFieldsAndSliceMaps(t *testing.T) {
 	}
 
 	out, err := handler.EncodeMaps(expected, object_name)
-	if err != nil {
+	if err != "" {
 		t.Fatal("no se esperaba error en cut.EncodeMaps y se obtuvo", err, out)
 	}
 
 	result, err := handler.DecodeMaps(out)
-	if err != nil {
+	if err != "" {
 		t.Fatal("no se esperaba error en cut.DecodeMaps y se obtuvo", err, result)
 	}
 
@@ -84,12 +84,12 @@ func TestWhitObjectAndOneMapIN(t *testing.T) {
 	expected := map[string]string{"description": "Manzanas", "price": "6000"}
 
 	out, err := handler.EncodeMaps(expected, object_name)
-	if err != nil {
+	if err != "" {
 		t.Fatal("no se esperaba error en cut.EncodeMaps y se obtuvo", err, out)
 	}
 
 	result, err := handler.DecodeMaps(out)
-	if err != nil {
+	if err != "" {
 		t.Fatal("no se esperaba error en cut.DecodeMaps y se obtuvo", err, result)
 	}
 
@@ -121,12 +121,12 @@ func TestObjectWhitFieldAndOneMapIN(t *testing.T) {
 	source_data := map[string]string{"description": "Manzanas", "price": "6000"}
 
 	out, err := handler.EncodeMaps(source_data, object_name)
-	if err != nil {
+	if err != "" {
 		t.Fatal("no se esperaba error en cut.EncodeMaps y se obtuvo", err, out)
 	}
 
 	result, err := handler.DecodeMaps(out, object_name)
-	if err != nil {
+	if err != "" {
 		t.Fatal("no se esperaba error en cut.DecodeMaps y se obtuvo", err, result)
 	}
 
@@ -161,12 +161,12 @@ func TestObjectWhitFieldAndTwoMapsIN(t *testing.T) {
 	}
 
 	out, err := handler.EncodeMaps(expected, object_name)
-	if err != nil {
+	if err != "" {
 		t.Fatal("no se esperaba error en cut.EncodeMaps y se obtuvo", err, out)
 	}
 
 	result, err := handler.DecodeMaps(out, object_name)
-	if err != nil {
+	if err != "" {
 		t.Fatal("no se esperaba error en cut.DecodeMaps y se obtuvo", err, result)
 	}
 
