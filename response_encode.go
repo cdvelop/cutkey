@@ -1,21 +1,29 @@
 package cutkey
 
 import (
-	"encoding/json"
-
 	"github.com/cdvelop/model"
 )
 
 func (c cut) EncodeResponses(requests ...model.Response) (result []byte, err string) {
-	const this = "EncodeResponses error "
-	var CutResponses []model.CutResponse
+	const this = "EncodeResponses "
+
+	responses := model.Responses{
+		NoCut: []model.Response{},
+		Cut:   []model.CutResponse{},
+	}
 
 	// Iteramos por cada Packages para generar un CutResponse para cada uno
 	for _, data := range requests {
 
 		object, err := c.GetObjectByName(data.Object)
 		if err != "" {
-			return nil, this + err
+
+			if data.Action == "" && data.Object == "" {
+				return nil, this + "error action y objeto no declarado"
+			}
+
+			responses.NoCut = append(responses.NoCut, data)
+			continue
 		}
 
 		cut_data, err := object.DataEncode(data.Data...)
@@ -32,15 +40,16 @@ func (c cut) EncodeResponses(requests ...model.Response) (result []byte, err str
 			CutResponse.CutOptions = append(CutResponse.CutOptions, data.Message)
 		}
 
-		CutResponses = append(CutResponses, CutResponse)
+		responses.Cut = append(responses.Cut, CutResponse)
 
+	}
+
+	result, err = jsonEncode(responses)
+	if err != "" {
+		return nil, this + err
 	}
 
 	// fmt.Println("\n=> DATA ENCODE:", CutResponses)
-	out, e := json.Marshal(CutResponses)
-	if e != nil {
-		return nil, this + e.Error()
-	}
 	// Codificamos el resultado como un array de bytes JSON
-	return out, ""
+	return
 }

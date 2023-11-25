@@ -1,7 +1,6 @@
 package cutkey
 
 import (
-	"encoding/json"
 	"strconv"
 
 	"github.com/cdvelop/model"
@@ -9,27 +8,29 @@ import (
 
 func (c cut) DecodeResponses(data []byte) (responses []model.Response, err string) {
 	const this = "DecodeResponses error "
-	var CutResponses []model.CutResponse
 
-	// Decodificamos el array de bytes JSON en un slice de CutResponse
-	e := json.Unmarshal(data, &CutResponses)
-	if e != nil {
-		return nil, this + e.Error()
+	var resp model.Responses
+	// Decodificamos el array de bytes JSON en un slice de Responses
+	err = jsonDecode(data, &resp)
+	if err != "" {
+		return
 	}
 
-	if len(CutResponses) > 0 {
+	responses = append(responses, resp.NoCut...)
 
-		for i, cr := range CutResponses {
+	if len(resp.Cut) > 0 {
 
-			// fmt.Printf("TAMAÑO CutOptions: %v\n", len(CutResponses[0].CutOptions))
-			if len(CutResponses[i].CutOptions) < 2 || len(CutResponses[i].CutOptions) > 4 {
-				// return nil, "CutOptions incorrectas en DecodeResponses "+ CutResponses[i].CutOptions
+		for i, cr := range resp.Cut {
+
+			// fmt.Printf("TAMAÑO CutOptions: %v\n", len(resp.Cut[0].CutOptions))
+			if len(resp.Cut[i].CutOptions) < 2 || len(resp.Cut[i].CutOptions) > 4 {
+				// return nil, "CutOptions incorrectas en DecodeResponses "+ resp.Cut[i].CutOptions
 				return nil, this + "CutOptions incorrectas"
 
 			}
 
-			if i >= len(CutResponses) {
-				return nil, this + "índice " + strconv.Itoa(i) + " fuera de rango en CutResponses"
+			if i >= len(resp.Cut) {
+				return nil, this + "índice " + strconv.Itoa(i) + " fuera de rango en resp.Cut"
 			}
 
 			object, err := c.GetObjectByName(cr.CutOptions[1])

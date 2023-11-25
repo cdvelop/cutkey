@@ -31,14 +31,14 @@ func (c cut) DecodeMaps(in []byte, object_name ...string) (data []map[string]str
 }
 
 func (c cut) decodeMaps(in []byte) (result []map[string]string, err string) {
-
-	const message = "decodeMaps error. tipo de dato no soportado:"
+	const this = "decodeMaps "
+	var message = this + "tipo de dato no soportado:"
 
 	var data interface{}
 
 	err = jsonDecode(in, &data)
 	if err != "" {
-		return nil, "decodeMaps jsonDecode error " + err
+		return nil, this + err
 	}
 
 	switch items := data.(type) {
@@ -55,7 +55,7 @@ func (c cut) decodeMaps(in []byte) (result []map[string]string, err string) {
 				result[i] = stringMap
 			} else {
 				// fmt.Printf(message+" %t",item)
-				c.Log(message, "decodeMaps data (%T): %v", items, items)
+				c.Log(this+message, "data (%T): %v", items, items)
 				return nil, message
 			}
 		}
@@ -63,7 +63,7 @@ func (c cut) decodeMaps(in []byte) (result []map[string]string, err string) {
 	case map[string]interface{}:
 		return []map[string]string{convertMap(items)}, ""
 	default:
-		c.Log(message, "decodeMaps data (%T): %v", items, items)
+		c.Log(this+message, "data (%T): %v", items, items)
 		return nil, message
 	}
 }

@@ -70,7 +70,7 @@ func TestDecodeEncodeBadNoData(t *testing.T) {
 
 	data, err := handler.EncodeResponses(requests...)
 	if err == "" {
-		t.Fatal("se esperaba error EncodeResponses y no se obtuvo", err)
+		t.Fatal("se esperaba error EncodeResponses y no se obtuvo", data)
 		return
 	}
 
