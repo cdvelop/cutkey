@@ -11,7 +11,7 @@ func (c cut) DecodeResponses(data []byte) (responses []model.Response, err strin
 
 	var resp model.Responses
 	// Decodificamos el array de bytes JSON en un slice de Responses
-	err = jsonDecode(data, &resp)
+	err = c.DecodeStruct(data, &resp)
 	if err != "" {
 		return
 	}

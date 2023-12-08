@@ -21,7 +21,7 @@ func (c cut) DecodeMaps(in []byte, object_name ...string) (data []map[string]str
 	}
 
 	var cut_data []model.CutData
-	err = jsonDecode(in, &cut_data)
+	err = c.DecodeStruct(in, &cut_data)
 	if err != "" {
 		return nil, "DecodeMaps error " + err
 	}
@@ -36,7 +36,7 @@ func (c cut) decodeMaps(in []byte) (result []map[string]string, err string) {
 
 	var data interface{}
 
-	err = jsonDecode(in, &data)
+	err = c.DecodeStruct(in, &data)
 	if err != "" {
 		return nil, this + err
 	}

@@ -4,19 +4,19 @@ import (
 	"encoding/json"
 )
 
-func jsonEncode(in any) (result []byte, err string) {
+func (cut) EncodeStruct(in any) (result []byte, err string) {
 	out, e := json.Marshal(in)
 	if e != nil {
-		return nil, "jsonEncode error " + e.Error()
+		return nil, "EncodeStruct error " + e.Error()
 	}
 	return out, ""
 }
 
-func jsonDecode(in []byte, out any) (err string) {
+func (cut) DecodeStruct(in []byte, out any) (err string) {
 
 	e := json.Unmarshal(in, &out)
 	if e != nil {
-		return "jsonDecode error " + e.Error()
+		return "DecodeStruct error " + e.Error()
 	}
 
 	return ""

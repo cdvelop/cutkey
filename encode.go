@@ -14,11 +14,11 @@ func (c cut) EncodeMaps(map_in any, object_name ...string) (out []byte, err stri
 
 	o, err := c.GetObjectByName(name)
 	if err != "" {
-		return jsonEncode(map_in)
+		return c.EncodeStruct(map_in)
 	}
 
 	if len(o.Fields) == 0 { // objeto sin campos solo convertimos a json normal
-		return jsonEncode(map_in)
+		return c.EncodeStruct(map_in)
 	}
 
 	// fmt.Println("CAMPOS OBJETO FILE:", o.Name, o.Fields)
@@ -43,6 +43,6 @@ func (c cut) EncodeMaps(map_in any, object_name ...string) (out []byte, err stri
 		return nil, err
 	}
 
-	return jsonEncode(cd)
+	return c.EncodeStruct(cd)
 
 }

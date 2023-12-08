@@ -44,7 +44,7 @@ func (c cut) EncodeResponses(requests ...model.Response) (result []byte, err str
 
 	}
 
-	result, err = jsonEncode(responses)
+	result, err = c.EncodeStruct(responses)
 	if err != "" {
 		return nil, this + err
 	}
