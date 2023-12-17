@@ -10,8 +10,9 @@ import (
 )
 
 func TestDecodeEncode(t *testing.T) {
-	handler := model.Handlers{}
-	handler.AddObjects(cutObjects...)
+	handler := model.MainHandler{
+		Modules: []*model.Module{cutModule},
+	}
 	cutkey.AddDataConverter(&handler)
 
 	requests := []model.Response{

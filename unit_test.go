@@ -9,7 +9,7 @@ import (
 )
 
 func TestWhitOutObject(t *testing.T) {
-	handler := model.Handlers{}
+	handler := model.MainHandler{}
 
 	cutkey.AddDataConverter(&handler)
 
@@ -39,25 +39,27 @@ func TestWhitObjectWhitOutFieldsAndSliceMaps(t *testing.T) {
 
 	object_name := "object_without_fields"
 
-	object_without_fields := model.Object{
-		ObjectName: object_name,
+	module := model.Module{
+		ModuleName: "test",
+		Objects: []*model.Object{{
+			ObjectName: object_name,
+		}},
+		MainHandler: &model.MainHandler{},
 	}
 
-	handler := model.Handlers{}
-	handler.AddObjects(&object_without_fields)
-	cutkey.AddDataConverter(&handler)
+	cutkey.AddDataConverter(module.MainHandler)
 
 	expected := []map[string]string{
 		{"description": "Manzanas", "price": "6000"},
 		{"description": "Peras"},
 	}
 
-	out, err := handler.EncodeMaps(expected, object_name)
+	out, err := module.EncodeMaps(expected, object_name)
 	if err != "" {
 		t.Fatal("no se esperaba error en cut.EncodeMaps y se obtuvo", err, out)
 	}
 
-	result, err := handler.DecodeMaps(out)
+	result, err := module.DecodeMaps(out)
 	if err != "" {
 		t.Fatal("no se esperaba error en cut.DecodeMaps y se obtuvo", err, result)
 	}
@@ -73,22 +75,29 @@ func TestWhitObjectAndOneMapIN(t *testing.T) {
 
 	object_name := "object_without_fields"
 
-	object_without_fields := model.Object{
-		ObjectName: object_name,
+	module := model.Module{
+		ModuleName: "",
+		Title:      "",
+		IconID:     "",
+		UI:         nil,
+		Areas:      map[string]string{},
+		Objects: []*model.Object{&model.Object{
+			ObjectName: object_name,
+		}},
+		Inputs:      []*model.Input{},
+		MainHandler: &model.MainHandler{},
 	}
 
-	handler := model.Handlers{}
-	handler.AddObjects(&object_without_fields)
-	cutkey.AddDataConverter(&handler)
+	cutkey.AddDataConverter(module.MainHandler)
 
 	expected := map[string]string{"description": "Manzanas", "price": "6000"}
 
-	out, err := handler.EncodeMaps(expected, object_name)
+	out, err := module.EncodeMaps(expected, object_name)
 	if err != "" {
 		t.Fatal("no se esperaba error en cut.EncodeMaps y se obtuvo", err, out)
 	}
 
-	result, err := handler.DecodeMaps(out)
+	result, err := module.DecodeMaps(out)
 	if err != "" {
 		t.Fatal("no se esperaba error en cut.DecodeMaps y se obtuvo", err, result)
 	}
@@ -106,26 +115,30 @@ func TestObjectWhitFieldAndOneMapIN(t *testing.T) {
 
 	object_name := "product"
 
-	object_without_fields := model.Object{
-		ObjectName: object_name,
-		Fields: []model.Field{
-			{Name: "description"},
-			{Name: "price"},
+	module := model.Module{
+		ModuleName: "test",
+		Objects: []*model.Object{
+			&model.Object{
+				ObjectName: object_name,
+				Fields: []model.Field{
+					{Name: "description"},
+					{Name: "price"},
+				},
+			},
 		},
+		MainHandler: &model.MainHandler{},
 	}
 
-	handler := model.Handlers{}
-	handler.AddObjects(&object_without_fields)
-	cutkey.AddDataConverter(&handler)
+	cutkey.AddDataConverter(module.MainHandler)
 
 	source_data := map[string]string{"description": "Manzanas", "price": "6000"}
 
-	out, err := handler.EncodeMaps(source_data, object_name)
+	out, err := module.EncodeMaps(source_data, object_name)
 	if err != "" {
 		t.Fatal("no se esperaba error en cut.EncodeMaps y se obtuvo", err, out)
 	}
 
-	result, err := handler.DecodeMaps(out, object_name)
+	result, err := module.DecodeMaps(out, object_name)
 	if err != "" {
 		t.Fatal("no se esperaba error en cut.DecodeMaps y se obtuvo", err, result)
 	}
@@ -143,29 +156,32 @@ func TestObjectWhitFieldAndTwoMapsIN(t *testing.T) {
 
 	object_name := "product"
 
-	object_without_fields := model.Object{
-		ObjectName: object_name,
-		Fields: []model.Field{
-			{Name: "description"},
-			{Name: "price"},
-		},
+	module := model.Module{
+		ModuleName: "test",
+		Objects: []*model.Object{
+			&model.Object{
+				ObjectName: object_name,
+				Fields: []model.Field{
+					{Name: "description"},
+					{Name: "price"},
+				},
+			}},
+		MainHandler: &model.MainHandler{},
 	}
 
-	handler := model.Handlers{}
-	handler.AddObjects(&object_without_fields)
-	cutkey.AddDataConverter(&handler)
+	cutkey.AddDataConverter(module.MainHandler)
 
 	expected := []map[string]string{
 		{"description": "Manzanas", "price": "6000"},
 		{"description": "Peras"},
 	}
 
-	out, err := handler.EncodeMaps(expected, object_name)
+	out, err := module.EncodeMaps(expected, object_name)
 	if err != "" {
 		t.Fatal("no se esperaba error en cut.EncodeMaps y se obtuvo", err, out)
 	}
 
-	result, err := handler.DecodeMaps(out, object_name)
+	result, err := module.DecodeMaps(out, object_name)
 	if err != "" {
 		t.Fatal("no se esperaba error en cut.DecodeMaps y se obtuvo", err, result)
 	}

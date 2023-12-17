@@ -15,7 +15,7 @@ func (c cut) EncodeResponses(requests ...model.Response) (result []byte, err str
 	// Iteramos por cada Packages para generar un CutResponse para cada uno
 	for _, data := range requests {
 
-		object, err := c.GetObjectByName(data.Object)
+		object, err := c.GetObjectByNameMainHandler(data.Object)
 		if err != "" {
 
 			if data.Action == "" && data.Object == "" {

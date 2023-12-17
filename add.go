@@ -9,7 +9,7 @@ type cut struct {
 	model.ObjectsHandler
 }
 
-func AddDataConverter(h *model.Handlers) {
+func AddDataConverter(h *model.MainHandler) {
 	c := &cut{
 		Logger:         h,
 		ObjectsHandler: h,

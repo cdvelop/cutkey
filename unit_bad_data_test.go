@@ -9,8 +9,9 @@ import (
 )
 
 func TestDecodeEncodeBadData(t *testing.T) {
-	handler := model.Handlers{}
-	handler.AddObjects(cutObjects...)
+	handler := model.MainHandler{
+		Modules: []*model.Module{cutModule},
+	}
 	cutkey.AddDataConverter(&handler)
 
 	requests := []model.Response{
@@ -56,8 +57,8 @@ func TestDecodeEncodeBadData(t *testing.T) {
 
 func TestDecodeEncodeBadNoData(t *testing.T) {
 
-	handler := model.Handlers{}
-	// handler.AddObjects(cutObjects...)
+	handler := model.MainHandler{}
+	// handler.AddModules(cutObjects...)
 	cutkey.AddDataConverter(&handler)
 
 	requests := []model.Response{
