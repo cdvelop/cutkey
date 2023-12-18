@@ -12,7 +12,7 @@ func (c cut) EncodeMaps(map_in any, object_name ...string) (out []byte, err stri
 		name = v
 	}
 
-	o, err := c.GetObjectByNameMainHandler(name)
+	o, err := c.MainHandlerGetObjectByName(name)
 	if err != "" {
 		return c.EncodeStruct(map_in)
 	}

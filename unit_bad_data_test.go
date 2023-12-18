@@ -58,7 +58,7 @@ func TestDecodeEncodeBadData(t *testing.T) {
 func TestDecodeEncodeBadNoData(t *testing.T) {
 
 	handler := model.MainHandler{}
-	// handler.AddModules(cutObjects...)
+	// handler.MainHandlerAddModules(cutObjects...)
 	cutkey.AddDataConverter(&handler)
 
 	requests := []model.Response{
