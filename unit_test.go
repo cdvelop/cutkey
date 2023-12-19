@@ -35,31 +35,35 @@ func TestWhitOutObject(t *testing.T) {
 }
 
 func TestWhitObjectWhitOutFieldsAndSliceMaps(t *testing.T) {
+	handler := &model.MainHandler{}
 	// agregamos objeto sin capos y slice de maps
 
 	object_name := "object_without_fields"
 
-	module := model.Module{
+	module := &model.Module{
 		ModuleName: "test",
-		Objects: []*model.Object{{
-			ObjectName: object_name,
-		}},
-		MainHandler: &model.MainHandler{},
 	}
+	module.AddObjectsToModule(&model.Object{
+		ObjectName: object_name,
+	})
+	handler.AddModules(module)
 
-	cutkey.AddDataConverter(module.MainHandler)
+	// Objects:= []*model.Object{
+	// 	ObjectName: object_name,
+	// }
+	cutkey.AddDataConverter(handler)
 
 	expected := []map[string]string{
 		{"description": "Manzanas", "price": "6000"},
 		{"description": "Peras"},
 	}
 
-	out, err := module.EncodeMaps(expected, object_name)
+	out, err := handler.EncodeMaps(expected, object_name)
 	if err != "" {
 		t.Fatal("no se esperaba error en cut.EncodeMaps y se obtuvo", err, out)
 	}
 
-	result, err := module.DecodeMaps(out)
+	result, err := handler.DecodeMaps(out)
 	if err != "" {
 		t.Fatal("no se esperaba error en cut.DecodeMaps y se obtuvo", err, result)
 	}
@@ -81,12 +85,16 @@ func TestWhitObjectAndOneMapIN(t *testing.T) {
 		IconID:     "",
 		UI:         nil,
 		Areas:      map[string]string{},
-		Objects: []*model.Object{&model.Object{
-			ObjectName: object_name,
-		}},
+
 		Inputs:      []*model.Input{},
 		MainHandler: &model.MainHandler{},
 	}
+
+	Objects := []*model.Object{&model.Object{
+		ObjectName: object_name,
+	}}
+
+	module.AddObjectsToModule(Objects...)
 
 	cutkey.AddDataConverter(module.MainHandler)
 
@@ -116,18 +124,20 @@ func TestObjectWhitFieldAndOneMapIN(t *testing.T) {
 	object_name := "product"
 
 	module := model.Module{
-		ModuleName: "test",
-		Objects: []*model.Object{
-			&model.Object{
-				ObjectName: object_name,
-				Fields: []model.Field{
-					{Name: "description"},
-					{Name: "price"},
-				},
-			},
-		},
+		ModuleName:  "test",
 		MainHandler: &model.MainHandler{},
 	}
+
+	Objects := []*model.Object{
+		&model.Object{
+			ObjectName: object_name,
+			Fields: []model.Field{
+				{Name: "description"},
+				{Name: "price"},
+			},
+		},
+	}
+	module.AddObjectsToModule(Objects...)
 
 	cutkey.AddDataConverter(module.MainHandler)
 
@@ -157,17 +167,18 @@ func TestObjectWhitFieldAndTwoMapsIN(t *testing.T) {
 	object_name := "product"
 
 	module := model.Module{
-		ModuleName: "test",
-		Objects: []*model.Object{
-			&model.Object{
-				ObjectName: object_name,
-				Fields: []model.Field{
-					{Name: "description"},
-					{Name: "price"},
-				},
-			}},
+		ModuleName:  "test",
 		MainHandler: &model.MainHandler{},
 	}
+	Objects := []*model.Object{
+		&model.Object{
+			ObjectName: object_name,
+			Fields: []model.Field{
+				{Name: "description"},
+				{Name: "price"},
+			},
+		}}
+	module.AddObjectsToModule(Objects...)
 
 	cutkey.AddDataConverter(module.MainHandler)
 

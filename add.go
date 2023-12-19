@@ -6,13 +6,13 @@ import (
 
 type cut struct {
 	model.Logger
-	model.ObjectHandler
+	model.ObjectsHandlerAdapter
 }
 
 func AddDataConverter(h *model.MainHandler) {
 	c := &cut{
-		Logger:        h,
-		ObjectHandler: h,
+		Logger:                h,
+		ObjectsHandlerAdapter: h,
 	}
 
 	h.DataConverter = c

@@ -6,21 +6,22 @@ import (
 
 var cutModule = &model.Module{
 	ModuleName: "cutkey.module.test",
-	Objects: []*model.Object{
-		{
-			ObjectName: "user",
-			Fields: []model.Field{
-				{Name: "name"},
-				{Name: "email"},
-				{Name: "phone"},
-			},
+}
+
+var cutObjects = []*model.Object{
+	{
+		ObjectName: "user",
+		Fields: []model.Field{
+			{Name: "name"},
+			{Name: "email"},
+			{Name: "phone"},
 		},
-		{
-			ObjectName: "product",
-			Fields: []model.Field{
-				{Name: "description"},
-				{Name: "price"},
-			},
+	},
+	{
+		ObjectName: "product",
+		Fields: []model.Field{
+			{Name: "description"},
+			{Name: "price"},
 		},
 	},
 }
