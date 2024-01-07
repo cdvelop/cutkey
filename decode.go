@@ -11,7 +11,7 @@ func (c cut) DecodeMaps(in []byte, object_name ...string) (data []map[string]str
 		name = v
 	}
 
-	o, err := c.GetObjectByName(name)
+	o, err := c.GetObjectBY(name, "")
 	if err != "" {
 		return c.decodeMaps(in)
 	}

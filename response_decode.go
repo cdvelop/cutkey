@@ -33,7 +33,7 @@ func (c cut) DecodeResponses(data []byte) (responses []model.Response, err strin
 				return nil, this + "índice " + strconv.Itoa(i) + " fuera de rango en resp.Cut"
 			}
 
-			object, err := c.GetObjectByName(cr.CutOptions[1])
+			object, err := c.GetObjectBY(cr.CutOptions[1], "")
 			if err != "" {
 				return nil, this + err
 			}
