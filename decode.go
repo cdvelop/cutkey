@@ -31,15 +31,19 @@ func (c cut) DecodeMaps(in []byte, object_name ...string) (data []map[string]str
 }
 
 func (c cut) decodeMaps(in []byte) (result []map[string]string, err string) {
-	const this = "decodeMaps "
-	var message = this + "tipo de dato no soportado:"
+	const e = "decodeMaps "
+	var message = e + "tipo de dato no soportado:"
+
+	// fmt.Println("DATA DE ENTRADA", in)
 
 	var data interface{}
 
 	err = c.DecodeStruct(in, &data)
 	if err != "" {
-		return nil, this + err
+		return nil, e + err
 	}
+
+	// fmt.Println("DATA DE SALIDA ANY", data)
 
 	switch items := data.(type) {
 	case []interface{}:
@@ -55,15 +59,24 @@ func (c cut) decodeMaps(in []byte) (result []map[string]string, err string) {
 				result[i] = stringMap
 			} else {
 				// fmt.Printf(message+" %t",item)
-				c.Log(this+message, "data (%T): %v", items, items)
+				c.Log(e+message, "data (%T): %v", items, items)
 				return nil, message
 			}
 		}
 		return result, ""
 	case map[string]interface{}:
 		return []map[string]string{convertMap(items)}, ""
+
+	case map[string]string:
+		// c.Log(e + "EN UN MAPA STRING")
+		return []map[string]string{items}, ""
+
+	case nil:
+		return []map[string]string{}, ""
+
 	default:
-		c.Log(this+message, "data (%T): %v", items, items)
+		// fmt.Printf("data (%T): %v\n", items, items)
+		c.Log(e+message, "data (%T): %v", items, items)
 		return nil, message
 	}
 }

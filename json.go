@@ -14,7 +14,7 @@ func (cut) EncodeStruct(in any) (result []byte, err string) {
 
 func (cut) DecodeStruct(in []byte, out any) (err string) {
 
-	e := json.Unmarshal(in, &out)
+	e := json.Unmarshal(in, out)
 	if e != nil {
 		return "DecodeStruct error " + e.Error()
 	}
