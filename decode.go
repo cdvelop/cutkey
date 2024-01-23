@@ -4,19 +4,19 @@ import (
 	"github.com/cdvelop/model"
 )
 
-func (c cut) DecodeMaps(in []byte, object_name ...string) (data []map[string]string, err string) {
+func (c *cut) DecodeMaps(in []byte, object_name ...string) (data []map[string]string, err string) {
 
 	var name string
 	for _, v := range object_name {
 		name = v
 	}
 
-	o, err := c.GetObjectBY(name, "")
+	c.object, err = c.GetObjectBY(name, "")
 	if err != "" {
 		return c.decodeMaps(in)
 	}
 
-	if len(o.Fields) == 0 { // objeto sin campos salida normal
+	if len(c.object.Fields) == 0 { // objeto sin campos salida normal
 		return c.decodeMaps(in)
 	}
 
@@ -26,13 +26,17 @@ func (c cut) DecodeMaps(in []byte, object_name ...string) (data []map[string]str
 		return nil, "DecodeMaps error " + err
 	}
 
-	return o.DataDecode(cut_data...)
+	return c.object.DataDecode(cut_data...)
 
 }
 
 func (c cut) decodeMaps(in []byte) (result []map[string]string, err string) {
 	const e = "decodeMaps "
 	var message = e + "tipo de dato no soportado:"
+
+	if len(in) == 0 {
+		return []map[string]string{}, ""
+	}
 
 	// fmt.Println("DATA DE ENTRADA", in)
 

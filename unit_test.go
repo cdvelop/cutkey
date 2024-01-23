@@ -90,7 +90,7 @@ func TestWhitObjectAndOneMapIN(t *testing.T) {
 		MainHandler: &model.MainHandler{},
 	}
 
-	Objects := []*model.Object{&model.Object{
+	Objects := []*model.Object{{
 		ObjectName: object_name,
 	}}
 
@@ -129,7 +129,7 @@ func TestObjectWhitFieldAndOneMapIN(t *testing.T) {
 	}
 
 	Objects := []*model.Object{
-		&model.Object{
+		{
 			ObjectName: object_name,
 			Fields: []model.Field{
 				{Name: "description"},
@@ -171,7 +171,7 @@ func TestObjectWhitFieldAndTwoMapsIN(t *testing.T) {
 		MainHandler: &model.MainHandler{},
 	}
 	Objects := []*model.Object{
-		&model.Object{
+		{
 			ObjectName: object_name,
 			Fields: []model.Field{
 				{Name: "description"},
